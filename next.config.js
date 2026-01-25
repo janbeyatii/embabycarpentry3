@@ -4,6 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Ensure proper routing for Vercel
+  trailingSlash: false,
 }
 
 module.exports = nextConfig
