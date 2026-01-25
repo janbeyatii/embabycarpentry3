@@ -3,8 +3,8 @@ import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Construction Website',
-  description: 'WeBuild - Construction Services',
+  title: 'Embaby Carpentry - Professional Construction & Carpentry Services',
+  description: 'Embaby Carpentry - Your Vision, Our Expertise. Professional construction, carpentry, and renovation services with quality craftsmanship since 2019.',
 }
 
 export default function RootLayout({

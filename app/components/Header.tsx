@@ -1,12 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 export default function Header() {
   const [navbarActive, setNavbarActive] = useState(false)
   const [searchActive, setSearchActive] = useState(false)
   const [loginActive, setLoginActive] = useState(false)
   const [contactInfoActive, setContactInfoActive] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +16,12 @@ export default function Header() {
       setSearchActive(false)
       setLoginActive(false)
       setContactInfoActive(false)
+      
+      if (window.scrollY > 50) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -22,36 +30,47 @@ export default function Header() {
 
   return (
     <>
-      <header className="header">
-        <a href="#" className="logo">We<span>Build</span></a>
+      <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+        <a href="#" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Image 
+            src="/images/logo.png" 
+            alt="Embaby Carpentry" 
+            width={60} 
+            height={60}
+            style={{ objectFit: 'contain' }}
+          />
+          <span style={{ fontSize: '2.5rem', fontWeight: '700' }}>Embaby <span style={{ color: 'var(--yellow)' }}>Carpentry</span></span>
+        </a>
 
         <nav className={`navbar ${navbarActive ? 'active' : ''}`}>
           <a href="#home">home</a>
           <a href="#about">about</a>
           <a href="#services">services</a>
           <a href="#projects">projects</a>
-          <a href="#pricing">pricing</a>
+          <a href="#team">team</a>
           <a href="#contact">contact</a>
           <a href="#blogs">blogs</a>
         </nav>
 
-        <div className="icons">
-          <div id="menu-btn" className="fas fa-bars" onClick={() => {
-            setNavbarActive(!navbarActive)
-            setSearchActive(false)
-            setLoginActive(false)
-          }}></div>
-          <div id="info-btn" className="fas fa-info-circle" onClick={() => setContactInfoActive(true)}></div>
-          <div id="search-btn" className="fas fa-search" onClick={() => {
-            setSearchActive(!searchActive)
-            setNavbarActive(false)
-            setLoginActive(false)
-          }}></div>
-          <div id="login-btn" className="fas fa-user" onClick={() => {
-            setLoginActive(!loginActive)
-            setNavbarActive(false)
-            setSearchActive(false)
-          }}></div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div className="icons">
+            <div id="menu-btn" className="fas fa-bars" onClick={() => {
+              setNavbarActive(!navbarActive)
+              setSearchActive(false)
+              setLoginActive(false)
+            }}></div>
+            <div id="info-btn" className="fas fa-info-circle" onClick={() => setContactInfoActive(true)}></div>
+            <div id="search-btn" className="fas fa-search" onClick={() => {
+              setSearchActive(!searchActive)
+              setNavbarActive(false)
+              setLoginActive(false)
+            }}></div>
+            <div id="login-btn" className="fas fa-user" onClick={() => {
+              setLoginActive(!loginActive)
+              setNavbarActive(false)
+              setSearchActive(false)
+            }}></div>
+          </div>
         </div>
 
         <form className={`search-form ${searchActive ? 'active' : ''}`}>
@@ -93,7 +112,7 @@ export default function Header() {
         <div className="info">
           <i className="fas fa-map-marker-alt"></i>
           <h3>office address</h3>
-          <p>mumbai, india - 400104</p>
+          <p>Ottawa, ON, Canada</p>
         </div>
 
         <div className="share">
