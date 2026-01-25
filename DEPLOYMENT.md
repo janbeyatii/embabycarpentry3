@@ -2,7 +2,49 @@
 
 ## Quick Fix for 404 Error
 
-If you're getting a 404 error on Vercel, try these steps:
+Since your build works locally (`npm run build` succeeds), the 404 on Vercel is likely a configuration issue. Try these steps in order:
+
+### Step 1: Verify Vercel Project Settings
+1. Go to Vercel Dashboard → Your Project → Settings
+2. Under **General** → **Framework Preset**: Should be **Next.js** (auto-detected)
+3. Under **Build & Development Settings**:
+   - **Framework Preset**: Next.js
+   - **Build Command**: `npm run build` (or leave default)
+   - **Output Directory**: Leave empty (Next.js handles this)
+   - **Install Command**: `npm install` (or leave default)
+   - **Node.js Version**: 18.x or 20.x
+
+### Step 2: Clear Vercel Cache and Redeploy
+1. In Vercel Dashboard → Your Project → Deployments
+2. Click the three dots (⋯) on the latest deployment
+3. Select **Redeploy** → Check **"Use existing Build Cache"** to **OFF**
+4. Click **Redeploy**
+
+### Step 3: Check Build Logs
+1. Go to the deployment that's showing 404
+2. Click on it to view details
+3. Check the **Build Logs** tab:
+   - Look for any errors or warnings
+   - Verify it says "Build Completed" (not failed)
+   - Check if it says "Framework Detected: Next.js"
+
+### Step 4: Verify Files Are Committed
+Make sure these files are committed to git:
+- ✅ `package.json`
+- ✅ `next.config.js`
+- ✅ `tsconfig.json`
+- ✅ `vercel.json`
+- ✅ `app/` directory (all files)
+- ✅ `public/` directory (all files)
+- ✅ `next-env.d.ts` (should be committed)
+
+Run: `git status` to see uncommitted files
+
+### Step 5: Manual Framework Selection (if auto-detect fails)
+If Vercel still doesn't detect Next.js:
+1. Go to Project Settings → General
+2. Under **Framework Preset**, manually select **Next.js**
+3. Save and redeploy
 
 ### 1. Check Build Logs
 - Go to your Vercel dashboard
