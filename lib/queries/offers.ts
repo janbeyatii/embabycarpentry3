@@ -1,4 +1,4 @@
-import { findAll, findById, insert, update, remove } from '../db'
+import { findAll, findById, insert, update, remove, sql } from '../db'
 
 export interface Offer {
   id: string
@@ -37,8 +37,6 @@ export async function deleteOffer(id: string): Promise<boolean> {
 
 export async function getActiveOffers(): Promise<Offer[]> {
   const now = new Date().toISOString()
-  const { sql } = await import('@vercel/postgres')
-  
   const result = await sql`
     SELECT * FROM offers
     WHERE is_active = true
@@ -46,6 +44,5 @@ export async function getActiveOffers(): Promise<Offer[]> {
       AND (end_date IS NULL OR end_date >= ${now}::timestamptz)
     ORDER BY created_at DESC
   `
-  
   return result.rows as Offer[]
 }

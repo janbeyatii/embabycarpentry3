@@ -47,9 +47,9 @@ export function checkLoginRateLimit(request: Request): { allowed: boolean; retry
 /** Remove old entries periodically to avoid unbounded memory use */
 function prune() {
   const now = Date.now()
-  for (const [key, value] of store.entries()) {
+  Array.from(store.entries()).forEach(([key, value]) => {
     if (now >= value.resetAt) store.delete(key)
-  }
+  })
 }
 if (typeof setInterval !== 'undefined') {
   setInterval(prune, 60 * 1000)

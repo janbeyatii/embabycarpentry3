@@ -1,5 +1,8 @@
 import { sql } from '@vercel/postgres'
 
+// Re-export for use in query modules (e.g. getActiveOffers)
+export { sql }
+
 // Helper for find by ID
 export async function findById<T = any>(table: string, id: string): Promise<T | null> {
   try {
@@ -34,7 +37,6 @@ export async function findAll<T = any>(
       query += ` ORDER BY ${orderBy}`
     }
 
-    // Use sql.query() method for parameterized queries
     const result = await sql.query(query, params)
     return result.rows as T[]
   } catch (error) {
@@ -57,7 +59,6 @@ export async function insert(table: string, data: Record<string, any>): Promise<
       RETURNING *
     `
 
-    // Use sql.query() method for parameterized queries
     const result = await sql.query(queryText, values)
     return result.rows[0] || null
   } catch (error) {
@@ -84,7 +85,6 @@ export async function update(
       RETURNING *
     `
 
-    // Use sql.query() method for parameterized queries
     const result = await sql.query(queryText, [id, ...values])
     return result.rows[0] || null
   } catch (error) {
@@ -96,7 +96,6 @@ export async function update(
 // Helper for delete operations
 export async function remove(table: string, id: string): Promise<boolean> {
   try {
-    // Use sql.query() method for parameterized queries
     await sql.query(`DELETE FROM ${table} WHERE id = $1`, [id])
     return true
   } catch (error) {
