@@ -563,10 +563,9 @@ section {
   color: var(--black);
 }
 
-/* Landing: banner + hero fill one viewport */
+/* Landing: banner + hero fill one viewport. Use svh so height does NOT change on scroll (dvh/lvh would resize when mobile URL bar shows/hides). */
 .landing-view {
-  height: calc(100vh - var(--header-height));
-  height: calc(100dvh - var(--header-height));
+  height: calc(100svh - var(--header-bar-height-px));
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -574,8 +573,7 @@ section {
 
 .landing-view .home {
   flex: 1 1 0;
-  min-height: 50vh;
-  min-height: 50dvh;
+  min-height: 50svh;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -585,8 +583,7 @@ section {
 .landing-view .home .swiper,
 .landing-view .home.home-static {
   flex: 1;
-  min-height: 50vh;
-  min-height: 50dvh;
+  min-height: 50svh;
   height: 100%;
   width: 100%;
 }
@@ -606,7 +603,7 @@ section {
 .home .slide {
   height: 100%;
   min-height: 100%;
-  min-height: 40vh;
+  min-height: 40svh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1801,8 +1798,8 @@ section {
     font-size: 58%;
   }
   .landing-view {
-    height: calc(100dvh - var(--header-bar-height-px));
-    min-height: calc(100dvh - var(--header-bar-height-px));
+    height: calc(100svh - var(--header-bar-height-px));
+    min-height: calc(100svh - var(--header-bar-height-px));
   }
   section {
     padding: 3rem 2rem;
@@ -2122,11 +2119,10 @@ section {
   }
   .landing-view .home,
   .landing-view .home .swiper {
-    min-height: 45vh;
-    min-height: 45dvh;
+    min-height: 45svh;
   }
   .home .slide {
-    min-height: 35vh;
+    min-height: 35svh;
   }
   .home-static .hero-content {
     padding: 3rem 5%;
