@@ -3,18 +3,17 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
+const SECTION_IDS = ['home', 'about', 'services', 'projects', 'contact', 'blogs'] as const
+
 export default function Header() {
   const [navbarActive, setNavbarActive] = useState(false)
-  const [searchActive, setSearchActive] = useState(false)
-  const [contactInfoActive, setContactInfoActive] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<'work' | 'about' | null>(null)
+  const [activeSection, setActiveSection] = useState<string>('home')
 
   useEffect(() => {
     const handleScroll = () => {
       setNavbarActive(false)
-      setSearchActive(false)
-      setContactInfoActive(false)
       setOpenDropdown(null)
       if (window.scrollY > 50) {
         setScrolled(true)
@@ -27,6 +26,29 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id')
+            if (id && SECTION_IDS.includes(id as typeof SECTION_IDS[number])) {
+              setActiveSection(id)
+            }
+          }
+        }
+      },
+      { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
+    )
+
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
   const closeNav = () => {
     setNavbarActive(false)
     setOpenDropdown(null)
@@ -36,19 +58,33 @@ export default function Header() {
     <>
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
         <a href="#" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <Image 
-            src="/images/logo.png" 
-            alt="Embaby Carpentry" 
-            width={48} 
-            height={48}
-            style={{ objectFit: 'contain' }}
-          />
-          <span style={{ fontSize: '2.2rem', fontWeight: '700' }}>Embaby <span style={{ color: 'var(--yellow)' }}>Carpentry</span></span>
+          <span className="logo-img-wrap">
+            <Image 
+              src="/images/logo.png" 
+              alt="Embaby Carpentry" 
+              width={48} 
+              height={48}
+              className="logo-img"
+            />
+          </span>
+          <span style={{ fontSize: '2.2rem', fontWeight: '700' }}><span style={{ color: 'var(--text-primary)' }}>Embaby</span> <span style={{ color: 'var(--yellow)' }}>Carpentry</span></span>
         </a>
 
-        <nav className={`navbar ${navbarActive ? 'active' : ''}`}>
-          <a href="#home" onClick={closeNav}>Home</a>
-          <a href="#services" onClick={closeNav}>Services</a>
+        <button
+          type="button"
+          className="menu-btn"
+          onClick={() => setNavbarActive((prev) => !prev)}
+          aria-label={navbarActive ? 'Close menu' : 'Open menu'}
+          aria-expanded={navbarActive}
+        >
+          <span className="menu-btn-bar" />
+          <span className="menu-btn-bar" />
+          <span className="menu-btn-bar" />
+        </button>
+
+        <nav className={`navbar ${navbarActive ? 'active' : ''}`} aria-hidden={!navbarActive}>
+          <a href="#home" onClick={closeNav} className={activeSection === 'home' ? 'active' : ''}>Home</a>
+          <a href="#services" onClick={closeNav} className={activeSection === 'services' ? 'active' : ''}>Services</a>
           <div
             className={`nav-dropdown ${openDropdown === 'work' ? 'open' : ''}`}
             onMouseEnter={() => !navbarActive && setOpenDropdown('work')}
@@ -56,7 +92,7 @@ export default function Header() {
           >
             <button
               type="button"
-              className="nav-dropdown-trigger"
+              className={`nav-dropdown-trigger ${activeSection === 'projects' ? 'active' : ''}`}
               onClick={() => setOpenDropdown(openDropdown === 'work' ? null : 'work')}
               aria-expanded={openDropdown === 'work'}
               aria-haspopup="true"
@@ -75,7 +111,7 @@ export default function Header() {
           >
             <button
               type="button"
-              className="nav-dropdown-trigger"
+              className={`nav-dropdown-trigger ${activeSection === 'about' ? 'active' : ''}`}
               onClick={() => setOpenDropdown(openDropdown === 'about' ? null : 'about')}
               aria-expanded={openDropdown === 'about'}
               aria-haspopup="true"
@@ -86,60 +122,16 @@ export default function Header() {
               <a href="#about" onClick={closeNav}>About Us</a>
             </div>
           </div>
-          <a href="#contact" onClick={closeNav}>Contact</a>
-          <a href="#blogs" onClick={closeNav}>Blogs</a>
+          <a href="#contact" onClick={closeNav} className={activeSection === 'contact' ? 'active' : ''}>Contact</a>
+          <a href="#blogs" onClick={closeNav} className={activeSection === 'blogs' ? 'active' : ''}>Blogs</a>
         </nav>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div className="icons">
-            <div id="menu-btn" className="fas fa-bars" onClick={() => {
-              setNavbarActive(!navbarActive)
-              setSearchActive(false)
-            }}></div>
-            <div id="info-btn" className="fas fa-info-circle" onClick={() => setContactInfoActive(true)}></div>
-            <div id="search-btn" className="fas fa-search" onClick={() => {
-              setSearchActive(!searchActive)
-              setNavbarActive(false)
-            }}></div>
-          </div>
+        <div className="header-actions">
+          <a href="#quote" className="header-cta-btn" onClick={closeNav}>
+            GET A QUOTE
+          </a>
         </div>
-
-        <form className={`search-form ${searchActive ? 'active' : ''}`}>
-          <input type="search" name="" placeholder="search here..." id="search-box" />
-          <label htmlFor="search-box" className="fas fa-search"></label>
-        </form>
       </header>
-
-      <div className={`contact-info ${contactInfoActive ? 'active' : ''}`}>
-        <div id="close-contact-info" className="fas fa-times" onClick={() => setContactInfoActive(false)}></div>
-
-        <div className="info">
-          <i className="fas fa-phone"></i>
-          <h3>phone number</h3>
-          <p>+123-456-7890</p>
-          <p>+111-222-3333</p>
-        </div>
-
-        <div className="info">
-          <i className="fas fa-envelope"></i>
-          <h3>email address</h3>
-          <p>shaikhanas@gmail.com</p>
-          <p>anasbhai@gmail.com</p>
-        </div>
-
-        <div className="info">
-          <i className="fas fa-map-marker-alt"></i>
-          <h3>office address</h3>
-          <p>Ottawa, ON, Canada</p>
-        </div>
-
-        <div className="share">
-          <a href="#" className="fab fa-facebook-f"></a>
-          <a href="#" className="fab fa-twitter"></a>
-          <a href="#" className="fab fa-instagram"></a>
-          <a href="#" className="fab fa-linkedin"></a>
-        </div>
-      </div>
     </>
   )
 }

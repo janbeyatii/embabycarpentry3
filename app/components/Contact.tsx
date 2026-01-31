@@ -14,10 +14,43 @@ export default function Contact() {
 
         <form action="">
           <h3>get in touch</h3>
-          <input type="text" placeholder="name" className="box" />
-          <input type="email" placeholder="email" className="box" />
-          <input type="number" placeholder="phone" className="box" />
-          <textarea name="" placeholder="message" className="box" cols={30} rows={10}></textarea>
+          <input
+            type="text"
+            name="name"
+            placeholder="name"
+            className="box"
+            required
+            minLength={2}
+            pattern="[A-Za-z\s\-']+"
+            title="Please enter a valid name (letters, spaces, hyphens or apostrophes only)"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="email"
+            className="box"
+            required
+            title="Please enter a valid email address"
+          />
+          <input
+            type="tel"
+            name="phone"
+            placeholder="phone (e.g. 613-555-1234)"
+            className="box"
+            required
+            pattern="[\d\s\-\.\(\)\+]{10,20}"
+            title="Please enter a valid phone number (10–20 digits, may include spaces, dashes, parentheses or +)"
+          />
+          <textarea
+            name="message"
+            placeholder="message"
+            className="box"
+            cols={30}
+            rows={10}
+            required
+            minLength={10}
+            title="Please enter at least 10 characters"
+          ></textarea>
           <input type="submit" value="send message" className="btn" />
         </form>
       </div>

@@ -20,8 +20,10 @@ export default function Page() {
   return (
     <>
       <Header />
-      <OffersBanner />
-      <Home />
+      <div className="landing-view">
+        <OffersBanner />
+        <Home />
+      </div>
       <Stats />
       <About />
       <Services />

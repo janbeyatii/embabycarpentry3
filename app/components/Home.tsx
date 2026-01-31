@@ -8,6 +8,24 @@ import type { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
+const slides = [
+  {
+    src: '/images/home-slide-1.jpg',
+    title: 'we provide best service',
+    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur beatae iusto pariatur laborum magnam eos!'
+  },
+  {
+    src: '/images/home-slide-2.jpg',
+    title: 'making dream come to life',
+    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur beatae iusto pariatur laborum magnam eos!'
+  },
+  {
+    src: '/images/home-slide-3.jpg',
+    title: 'from concept to creation',
+    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur beatae iusto pariatur laborum magnam eos!'
+  }
+]
+
 export default function Home() {
   const swiperRef = useRef<SwiperType>()
 
@@ -23,29 +41,20 @@ export default function Home() {
           swiperRef.current = swiper
         }}
       >
-        <SwiperSlide className="slide" style={{ background: 'url(/images/home-slide-1.jpg) no-repeat' }}>
-          <div className="content">
-            <h3>we provide best service</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur beatae iusto pariatur laborum magnam eos!</p>
-            <a href="#about" className="btn">get started</a>
-          </div>
-        </SwiperSlide>
-
-        <SwiperSlide className="slide" style={{ background: 'url(/images/home-slide-2.jpg) no-repeat' }}>
-          <div className="content">
-            <h3>making dream come to life</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur beatae iusto pariatur laborum magnam eos!</p>
-            <a href="#about" className="btn">get started</a>
-          </div>
-        </SwiperSlide>
-
-        <SwiperSlide className="slide" style={{ background: 'url(/images/home-slide-3.jpg) no-repeat' }}>
-          <div className="content">
-            <h3>from concept to creation</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur beatae iusto pariatur laborum magnam eos!</p>
-            <a href="#about" className="btn">get started</a>
-          </div>
-        </SwiperSlide>
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index} className="slide">
+            <img
+              src={slide.src}
+              alt=""
+              className="slide-bg-img"
+            />
+            <div className="content">
+              <h3>{slide.title}</h3>
+              <p>{slide.text}</p>
+              <a href="#about" className="btn">get started</a>
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </section>
   )
