@@ -40,11 +40,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Next.js expands $ in .env — if hash was corrupted it won't start with $2b$
+    // Next.js/Vercel expands $ in env — unescaped hash gets corrupted. Must use escaped form.
     if (!adminPasswordHash.startsWith('$2b$')) {
-      console.error('ADMIN_PASSWORD_HASH is invalid (missing $2b$ prefix). In .env escape dollar signs: ADMIN_PASSWORD_HASH=\\$2b\\$10\\$...')
+      console.error('ADMIN_PASSWORD_HASH is invalid (missing $2b$ prefix). Run: node scripts/generate-env.js and use the escaped ADMIN_PASSWORD_HASH= line it prints in Vercel / .env')
       return NextResponse.json(
-        { error: 'Invalid server config: ADMIN_PASSWORD_HASH. In .env escape each $ with backslash, e.g. \\$2b\\$10\\$...' },
+        { error: 'Invalid server config: ADMIN_PASSWORD_HASH. Run `node scripts/generate-env.js`, then in Vercel (and .env) paste the full ADMIN_PASSWORD_HASH= line it prints (with backslashes before each $).' },
         { status: 500 }
       )
     }

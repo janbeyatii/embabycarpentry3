@@ -36,11 +36,11 @@ async function main() {
   }
 
   const hash = await bcrypt.hash(password, 10);
-  // Escape $ for .env (Next.js expands $VAR); use this in .env so the hash is not corrupted
+  // Escape $ for .env and Vercel (they expand $VAR); use this so the hash is not corrupted
   const hashForEnv = hash.replace(/\$/g, '\\$');
-  console.log('\n✅ ADMIN_PASSWORD_HASH generated:');
-  console.log(hash);
-  console.log('\n✅ For .env (use this line so $ is not expanded):');
+  console.log('\n✅ ADMIN_PASSWORD_HASH generated.');
+  console.log('\n⚠️  In Vercel and in .env you MUST use the escaped line below (with backslashes), or the hash will be invalid:');
+  console.log('');
   console.log('ADMIN_PASSWORD_HASH=' + hashForEnv);
   console.log('');
 
