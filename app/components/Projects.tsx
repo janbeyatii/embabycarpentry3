@@ -17,6 +17,9 @@ function escapeHtml(text: string): string {
     .replace(/"/g, '&quot;')
 }
 
+/** Set to true to re-enable lightbox when clicking portfolio items */
+const PORTFOLIO_LIGHTBOX_ENABLED = false
+
 interface Project {
   id: string
   title: string
@@ -27,6 +30,7 @@ interface Project {
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const galleryInstanceRef = useRef<{ closeGallery?: () => void } | null>(null)
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -46,8 +50,42 @@ export default function Projects() {
   }, [])
 
   useEffect(() => {
-    if (!containerRef.current || projects.length === 0 || typeof window === 'undefined') return
+    if (!PORTFOLIO_LIGHTBOX_ENABLED || !containerRef.current || projects.length === 0 || typeof window === 'undefined') return
     const el = containerRef.current
+
+    const onInit = (e: { detail?: { instance?: { closeGallery?: () => void } } }) => {
+      galleryInstanceRef.current = e.detail?.instance ?? null
+    }
+    const onAfterOpen = () => {
+      const existing = document.querySelector('.portfolio-lightbox-close')
+      if (existing) return
+      const container =
+        document.querySelector('.lg-toolbar') ??
+        document.querySelector('.lg-outer') ??
+        document.querySelector('.lg-backdrop')
+      if (!container) return
+      const btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = 'portfolio-lightbox-close'
+      btn.setAttribute('aria-label', 'Close')
+      btn.innerHTML = '×'
+      btn.onclick = () => {
+        if (typeof galleryInstanceRef.current?.closeGallery === 'function') {
+          galleryInstanceRef.current.closeGallery()
+        } else {
+          ;(document.querySelector('.lg-close') as HTMLElement)?.click()
+        }
+      }
+      container.appendChild(btn)
+    }
+    const onAfterClose = () => {
+      document.querySelector('.portfolio-lightbox-close')?.remove()
+    }
+
+    el.addEventListener('lgInit', onInit)
+    el.addEventListener('lgAfterOpen', onAfterOpen)
+    el.addEventListener('lgAfterClose', onAfterClose)
+
     let attempts = 0
     const maxAttempts = 50
     const initGallery = () => {
@@ -61,12 +99,27 @@ export default function Projects() {
       }
       return false
     }
-    if (initGallery()) return
+    if (initGallery()) {
+      return () => {
+        el.removeEventListener('lgInit', onInit)
+        el.removeEventListener('lgAfterOpen', onAfterOpen)
+        el.removeEventListener('lgAfterClose', onAfterClose)
+        document.querySelector('.portfolio-lightbox-close')?.remove()
+      }
+    }
     const t = setInterval(() => {
       attempts += 1
-      if (initGallery() || attempts >= maxAttempts) clearInterval(t)
+      if (initGallery() || attempts >= maxAttempts) {
+        clearInterval(t)
+      }
     }, 100)
-    return () => clearInterval(t)
+    return () => {
+      clearInterval(t)
+      el.removeEventListener('lgInit', onInit)
+      el.removeEventListener('lgAfterOpen', onAfterOpen)
+      el.removeEventListener('lgAfterClose', onAfterClose)
+      document.querySelector('.portfolio-lightbox-close')?.remove()
+    }
   }, [projects])
 
   if (loading) {
@@ -109,9 +162,11 @@ export default function Projects() {
           return (
             <a
               key={project.id}
-              href={firstImage}
+              href={PORTFOLIO_LIGHTBOX_ENABLED ? firstImage : '#'}
               className="box"
               data-sub-html={captionHtml}
+              onClick={(e) => !PORTFOLIO_LIGHTBOX_ENABLED && e.preventDefault()}
+              style={!PORTFOLIO_LIGHTBOX_ENABLED ? { cursor: 'default' } : undefined}
             >
               <div className="image">
                 <Image src={firstImage} alt={project.title} width={500} height={400} unoptimized={firstImage.startsWith('http')} />

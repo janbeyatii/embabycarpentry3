@@ -1242,6 +1242,36 @@ section {
   line-height: 1.6;
 }
 
+/* Portfolio lightbox exit X button */
+.portfolio-lightbox-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--white);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.portfolio-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+}
+.portfolio-lightbox-close:focus {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
+
 /* Google-style Reviews */
 .reviews {
   background: #f8f9fa;

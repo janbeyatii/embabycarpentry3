@@ -4,31 +4,31 @@ import Link from 'next/link'
 export default function Services() {
   const services = [
     {
-      img: '/images/service-1.png',
+      img: '/images/service-1.webp',
       title: 'Kitchens',
       desc: 'Complete kitchen renovation, design, and installation. Custom cabinets, countertops, and modern fixtures.',
       category: 'kitchens',
     },
     {
-      img: '/images/service-2.png',
+      img: '/images/service-2.webp',
       title: 'Bath',
       desc: 'Bathroom remodeling and renovation services. Transform your space with quality fixtures and finishes.',
       category: 'bath',
     },
     {
-      img: '/images/service-3.png',
+      img: '/images/service-3.webp',
       title: 'Basement',
       desc: 'Basement finishing and renovation. Create additional living space with professional craftsmanship.',
       category: 'basement',
     },
     {
-      img: '/images/service-4.png',
+      img: '/images/service-4.webp',
       title: 'Deck and Fences',
       desc: 'Custom deck construction and fence installation. Enhance your outdoor living space with durable materials.',
       category: 'deck-fences',
     },
     {
-      img: '/images/service-5.png',
+      img: '/images/service-5.webp',
       title: 'Sheds',
       desc: 'Custom shed design and construction. Functional storage solutions tailored to your needs.',
       category: 'sheds',
