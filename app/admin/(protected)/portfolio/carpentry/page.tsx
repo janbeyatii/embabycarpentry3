@@ -2,6 +2,21 @@ import Link from 'next/link'
 import { getCarpentryPortfolio } from '@/lib/queries/carpentry-portfolio'
 import { DeleteCarpentryButton } from './DeleteCarpentryButton'
 
+function normalizeImages(images: unknown): string[] {
+  if (Array.isArray(images)) {
+    return images.filter((u): u is string => typeof u === 'string' && u.startsWith('http'))
+  }
+  if (typeof images === 'string') {
+    try {
+      const parsed = JSON.parse(images.replace(/'/g, '"'))
+      return Array.isArray(parsed) ? parsed.filter((u: unknown) => typeof u === 'string') : []
+    } catch {
+      return []
+    }
+  }
+  return []
+}
+
 export default async function CarpentryPortfolioPage() {
   const items = await getCarpentryPortfolio()
 
@@ -52,7 +67,10 @@ export default async function CarpentryPortfolioPage() {
           gridTemplateColumns: 'repeat(auto-fill, minmax(30rem, 1fr))',
           gap: '2rem'
         }}>
-          {items.map((item) => (
+          {items.map((item) => {
+            const images = normalizeImages(item.images)
+            const thumb = images.length > 0 ? images[0] : null
+            return (
             <div
               key={item.id}
               style={{
@@ -62,6 +80,12 @@ export default async function CarpentryPortfolioPage() {
                 border: 'var(--border)'
               }}
             >
+              {thumb && (
+                <div style={{ marginBottom: '1rem', borderRadius: '0.5rem', overflow: 'hidden', aspectRatio: '16/10', background: 'var(--black)' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={thumb} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              )}
               <h3 style={{
                 fontSize: '2rem',
                 color: 'var(--text-primary)',
@@ -107,7 +131,8 @@ export default async function CarpentryPortfolioPage() {
                 <DeleteCarpentryButton itemId={item.id} />
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       )}
     </div>

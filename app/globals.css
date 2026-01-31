@@ -837,6 +837,136 @@ section {
   line-height: 2;
 }
 
+/* Services grid layout (card style with image on top, LEARN MORE, Get A Quote CTA) */
+.services-grid-style {
+  background-color: var(--black);
+  background-image: url('/images/service-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  position: relative;
+}
+.services-grid-style::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+}
+.services-grid-style .heading {
+  color: var(--white);
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 992px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 576px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.service-card {
+  background: var(--white);
+  border-radius: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+.service-card-image {
+  aspect-ratio: 5 / 3;
+  overflow: hidden;
+  background: var(--black-light);
+}
+.service-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.service-card:hover .service-card-img {
+  transform: scale(1.05);
+}
+.service-card-body {
+  padding: 2rem 1.75rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.service-card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #b8860b;
+  margin: 0 0 0.75rem;
+  text-transform: capitalize;
+  line-height: 1.2;
+}
+.service-card-desc {
+  font-size: 1.35rem;
+  color: #6b6356;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+  flex: 1;
+}
+.service-card-btn {
+  display: inline-block;
+  width: -webkit-fit-content;
+  width: fit-content;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #b8860b;
+  border: 2px solid #b8860b;
+  border-radius: 0.4rem;
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+.service-card-btn:hover {
+  background: #b8860b;
+  color: var(--white);
+}
+.service-card-cta {
+  background: #c9a227;
+  justify-content: center;
+}
+.service-card-cta .service-card-body {
+  justify-content: center;
+}
+.service-card-cta-title {
+  color: var(--white) !important;
+  font-size: 1.85rem;
+}
+.service-card-cta-desc {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+.service-card-cta-btn {
+  color: var(--white);
+  border-color: var(--white);
+}
+.service-card-cta-btn:hover {
+  background: var(--white);
+  color: #b8860b;
+}
+
 .projects {
   background: var(--black);
 }
@@ -854,7 +984,9 @@ section {
 }
 
 .projects .box-container .box {
-  cursor: initial;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
 }
 
 .projects .box-container .box:hover .image img {
@@ -905,12 +1037,44 @@ section {
 
 .projects .box-container .box .content i {
   width: 7.5rem;
+  min-width: 7.5rem;
   font-size: 3rem;
   background: var(--yellow);
   color: var(--white);
   cursor: pointer;
-  text-align: center;
-  line-height: 7.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: background 0.2s, color 0.2s;
+          transition: background 0.2s, color 0.2s;
+}
+.projects .box-container .box:hover .content i {
+  background: var(--white);
+  color: var(--yellow);
+}
+
+/* Lightbox caption (title + full description when project is clicked) */
+.lg-sub-html {
+  padding: 1rem 1.5rem;
+  max-width: 50rem;
+}
+.lg-sub-html .lg-caption-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.8rem;
+  color: var(--white);
+  font-weight: 700;
+}
+.lg-sub-html .lg-caption-desc {
+  margin: 0;
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
 }
 
 /* Google-style Reviews */
