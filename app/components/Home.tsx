@@ -1,61 +1,34 @@
 'use client'
 
-import { useRef } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
-import type { Swiper as SwiperType } from 'swiper'
-
-import 'swiper/css'
-import 'swiper/css/navigation'
-
-const slides = [
-  {
-    src: '/images/home-slide-1.jpg',
-    title: 'we provide best service',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur beatae iusto pariatur laborum magnam eos!'
-  },
-  {
-    src: '/images/home-slide-2.jpg',
-    title: 'making dream come to life',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur beatae iusto pariatur laborum magnam eos!'
-  },
-  {
-    src: '/images/home-slide-3.jpg',
-    title: 'from concept to creation',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur beatae iusto pariatur laborum magnam eos!'
-  }
-]
-
 export default function Home() {
-  const swiperRef = useRef<SwiperType>()
-
   return (
-    <section className="home" id="home">
-      <Swiper
-        modules={[Navigation]}
-        navigation={true}
-        loop={true}
-        grabCursor={true}
-        className="home-slider"
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper
-        }}
-      >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index} className="slide">
-            <img
-              src={slide.src}
-              alt=""
-              className="slide-bg-img"
-            />
-            <div className="content">
-              <h3>{slide.title}</h3>
-              <p>{slide.text}</p>
-              <a href="#about" className="btn">get started</a>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <section className="home home-static" id="home">
+      <div className="hero-bg">
+        <img
+          src="/images/home-slide-1.jpg"
+          alt=""
+          className="hero-bg-img"
+        />
+        <div className="hero-overlay" aria-hidden />
+      </div>
+      <div className="hero-content">
+        <p className="hero-subtitle" aria-hidden>Since 2019</p>
+        <h1 className="hero-headline">
+          We offer Construction Services for Residential or Commercial use.
+        </h1>
+        <p className="hero-body">
+          For over 7 years, the locally owned and operated Embaby Carpentry has worked with hundresds of residential homeowners, architects, commercial builders, interior designers, general contractors, carpenters, real estate developers and realtors.
+        </p>
+        <div className="hero-ctas">
+          <a href="#services" className="btn hero-btn-primary">
+            Our Services
+          </a>
+          <a href="tel:+16138221200" className="hero-phone-box">
+            <i className="fas fa-phone" aria-hidden />
+            <span>1-613-822-1200</span>
+          </a>
+        </div>
+      </div>
     </section>
   )
 }

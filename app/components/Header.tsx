@@ -7,7 +7,6 @@ const SECTION_IDS = ['home', 'about', 'services', 'projects', 'contact', 'blogs'
 
 export default function Header() {
   const [navbarActive, setNavbarActive] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<'work' | 'about' | null>(null)
   const [activeSection, setActiveSection] = useState<string>('home')
 
@@ -15,13 +14,7 @@ export default function Header() {
     const handleScroll = () => {
       setNavbarActive(false)
       setOpenDropdown(null)
-      if (window.scrollY > 50) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
     }
-
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -56,7 +49,7 @@ export default function Header() {
 
   return (
     <>
-      <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+      <header className="header">
         <a href="#" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <span className="logo-img-wrap">
             <Image 
@@ -67,7 +60,7 @@ export default function Header() {
               className="logo-img"
             />
           </span>
-          <span style={{ fontSize: '2.2rem', fontWeight: '700' }}><span style={{ color: 'var(--text-primary)' }}>Embaby</span> <span style={{ color: 'var(--yellow)' }}>Carpentry</span></span>
+          <span style={{ fontSize: '2.2rem', fontWeight: '700' }}><span style={{ color: 'var(--text-primary)' }}>Embaby</span> <span style={{ color: 'var(--gold)' }}>Carpentry</span></span>
         </a>
 
         <button

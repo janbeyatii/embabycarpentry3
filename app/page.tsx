@@ -18,22 +18,24 @@ export default function Page() {
   return (
     <>
       <Header />
-      <div className="landing-view">
-        <OffersBanner />
-        <Home />
+      <div className="main-content">
+        <div className="landing-view">
+          <OffersBanner />
+          <Home />
+        </div>
+        <Stats />
+        <About />
+        <Services />
+        <Projects />
+        <Reviews />
+        <QuoteRequest />
+        <FAQ />
+        <Contact />
+        <Blogs />
+        <CTASection />
+        <Footer />
+        <ScrollToTop />
       </div>
-      <Stats />
-      <About />
-      <Services />
-      <Projects />
-      <Reviews />
-      <QuoteRequest />
-      <FAQ />
-      <Contact />
-      <Blogs />
-      <CTASection />
-      <Footer />
-      <ScrollToTop />
     </>
   )
 }

@@ -1,25 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 :root {
-  --yellow:#f5bf23;
-  --yellow-dark:#d4a01e;
-  --black:#000000;
-  --black-light:#111111;
-  --white:#FFFFFF;
-  --text-primary:#FFFFFF;
-  --text-secondary:#CCCCCC;
-  --light-color:#CCCCCC;
-  --light-bg:#111111;
-  --light-bg-2:#1a1a1a;
-  --box-shadow:0 .5rem 1rem rgba(0,0,0,.5);
-  --box-shadow-lg:0 1rem 2rem rgba(0,0,0,.7);
-  --box-shadow-xl:0 1.5rem 3rem rgba(0,0,0,.8);
-  --border:.1rem solid rgba(255,255,255,.1);
-  --gradient-primary:linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dark) 100%);
-  --gradient-dark:linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
-  --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-fast:all 0.2s ease;
+  /* Logo gold – header, nav, logo accent */
+  --gold: #c9a227;
+  --gold-dark: #a67c00;
+  /* Warm wood – section headings, craft feel */
+  --wood: #9C7B3C;
+  --wood-dark: #7A5F2E;
+  /* Timber – buttons, CTAs, scrollbar, natural accent */
+  --timber: #4A6741;
+  --timber-dark: #3D5536;
+  /* Page accent (timber) and heading accent (wood) */
+  --accent: var(--timber);
+  --accent-dark: var(--timber-dark);
+  --yellow: var(--timber);
+  --yellow-dark: var(--timber-dark);
+  --heading-accent: var(--wood);
+  --heading-accent-dark: var(--wood-dark);
+  --black: #000000;
+  --black-light: #111111;
+  --white: #FFFFFF;
+  --text-primary: #FFFFFF;
+  --text-secondary: #CCCCCC;
+  --light-color: #CCCCCC;
+  --light-bg: #111111;
+  --light-bg-2: #1a1a1a;
+  --box-shadow: 0 .5rem 1rem rgba(0,0,0,.5);
+  --box-shadow-lg: 0 1rem 2rem rgba(0,0,0,.7);
+  --box-shadow-xl: 0 1.5rem 3rem rgba(0,0,0,.8);
+  --border: .1rem solid rgba(255,255,255,.1);
+  --gradient-primary: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  --gradient-gold: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  --gradient-wood: linear-gradient(135deg, var(--wood) 0%, var(--wood-dark) 100%);
+  --gradient-dark: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.2s ease;
   --landing-offset: 11rem;
   --header-height: 7rem;
+  --header-bar-height: 7rem;
+  /* Pixel height so header never shrinks when html font-size changes in media queries */
+  --header-bar-height-px: 70px;
 }
 
 * {
@@ -37,7 +56,7 @@ html {
   font-size: 62.5%;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: var(--header-bar-height-px);
 }
 
 html::-webkit-scrollbar {
@@ -49,7 +68,11 @@ html::-webkit-scrollbar-track {
 }
 
 html::-webkit-scrollbar-thumb {
-  background: var(--yellow);
+  background: var(--black);
+}
+
+.main-content {
+  padding-top: var(--header-bar-height-px);
 }
 
 section {
@@ -63,7 +86,7 @@ section {
   color: var(--text-primary);
   text-transform: capitalize;
   padding-left: 1.5rem;
-  border-left: 0.5rem solid var(--yellow);
+  border-left: 0.5rem solid var(--heading-accent);
   position: relative;
   line-height: 1.2;
 }
@@ -75,7 +98,7 @@ section {
   left: 1.5rem;
   width: 5rem;
   height: 0.3rem;
-  background: var(--gradient-primary);
+  background: var(--gradient-wood);
   border-radius: 0.2rem;
 }
 
@@ -83,7 +106,7 @@ section {
   text-align: center;
   padding-left: 0;
   border-left: none;
-  border-bottom: 0.3rem solid var(--yellow);
+  border-bottom: 0.3rem solid var(--heading-accent);
   padding-bottom: 1rem;
   margin-bottom: 4rem;
 }
@@ -105,7 +128,7 @@ section {
   margin-top: 1rem;
   padding: 1.2rem 3.5rem;
   background: var(--yellow);
-  color: var(--black);
+  color: var(--white);
   cursor: pointer;
   font-size: 1.7rem;
   font-weight: 600;
@@ -137,7 +160,7 @@ section {
 
 .btn:hover {
   background: var(--yellow);
-  color: var(--black);
+  color: var(--white);
   transform: translateY(-2px);
   box-shadow: var(--box-shadow-lg);
 }
@@ -178,15 +201,22 @@ section {
   }
 }
 
+/* Fixed header: (1) position:fixed avoids collapse from html{overflow-x:hidden}
+   creating a sticky containing block; (2) height in px so it never shrinks when
+   html font-size is reduced in media queries. No scroll-based transitions. */
 .header {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  height: var(--header-bar-height-px);
+  min-height: var(--header-bar-height-px);
+  max-height: var(--header-bar-height-px);
+  flex-shrink: 0;
+  box-sizing: border-box;
   -webkit-box-shadow: var(--box-shadow);
           box-shadow: var(--box-shadow);
-  padding: 1rem 10%;
+  padding: 12px 10%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -196,20 +226,18 @@ section {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  z-index: 1000;
+  z-index: 9999;
   background: rgba(0, 0, 0, 0.45);
   -webkit-backdrop-filter: blur(12px);
           backdrop-filter: blur(12px);
-  -webkit-transition: background 0.35s ease, padding 0.35s ease, box-shadow 0.35s ease;
-          transition: background 0.35s ease, padding 0.35s ease, box-shadow 0.35s ease;
+  overflow: visible;
 }
-
-.header.scrolled {
-  background: var(--black);
-  -webkit-backdrop-filter: none;
-          backdrop-filter: none;
-  box-shadow: var(--box-shadow-lg);
-  padding: 0.66rem 10%;
+/* Prevent header children from shrinking so bar stays full height */
+.header > .logo,
+.header > .menu-btn,
+.header > .navbar,
+.header > .header-actions {
+  flex-shrink: 0;
 }
 
 .header .logo {
@@ -233,14 +261,14 @@ section {
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  border: 1px solid rgba(245, 191, 35, 0.35);
+  border: 1px solid rgba(201, 162, 39, 0.5);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
   transition: var(--transition);
 }
 
 .header .logo:hover .logo-img-wrap {
-  border-color: rgba(245, 191, 35, 0.6);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 0 12px rgba(245, 191, 35, 0.2);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 0 12px rgba(201, 162, 39, 0.3);
 }
 
 .header .logo-img-wrap .logo-img {
@@ -258,7 +286,7 @@ section {
 }
 
 .header .logo span {
-  color: var(--yellow);
+  color: var(--gold);
 }
 
 .header .navbar > a,
@@ -273,13 +301,13 @@ section {
 }
 
 .header .navbar a:hover {
-  color: var(--yellow);
+  color: var(--gold);
 }
 
 .header .navbar a.active,
 .header .nav-dropdown-trigger.active {
-  color: var(--yellow);
-  border-bottom: 0.2rem solid var(--yellow);
+  color: var(--gold);
+  border-bottom: 0.2rem solid var(--gold);
   padding-bottom: 0.2rem;
 }
 
@@ -305,7 +333,7 @@ section {
 }
 
 .header .nav-dropdown-trigger:hover {
-  color: var(--yellow);
+  color: var(--gold);
 }
 
 .header .nav-dropdown-content {
@@ -340,8 +368,8 @@ section {
 }
 
 .header .nav-dropdown-content a:hover {
-  background: rgba(245, 191, 35, 0.15);
-  color: var(--yellow);
+  background: rgba(201, 162, 39, 0.2);
+  color: var(--gold);
 }
 
 .header .icons div {
@@ -374,7 +402,7 @@ section {
 .header-cta-btn {
   display: inline-block;
   padding: 0.9rem 1.8rem;
-  background: var(--yellow);
+  background: var(--gold);
   color: var(--black);
   font-size: 1.4rem;
   font-weight: 700;
@@ -388,7 +416,7 @@ section {
 }
 
 .header-cta-btn:hover {
-  background: var(--yellow-dark);
+  background: var(--gold-dark);
   color: var(--black);
   transform: translateY(-2px);
   box-shadow: var(--box-shadow-lg);
@@ -554,7 +582,8 @@ section {
 }
 
 .landing-view .home .home-slider,
-.landing-view .home .swiper {
+.landing-view .home .swiper,
+.landing-view .home.home-static {
   flex: 1;
   min-height: 50vh;
   min-height: 50dvh;
@@ -694,6 +723,142 @@ section {
   right: 5rem;
 }
 
+/* Static hero – full-width bg, centered content, reference layout */
+.home.home-static {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.home-static .hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.home-static .hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.home-static .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.75);
+  z-index: 1;
+}
+
+.home-static .hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 6rem 2rem 7rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.home-static .hero-subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+
+.home-static .hero-headline {
+  font-size: clamp(3rem, 5vw + 2rem, 5.2rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--white);
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  max-width: 100%;
+}
+
+.home-static .hero-body {
+  font-size: clamp(1.5rem, 1.5vw + 0.5rem, 1.8rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 3rem;
+  max-width: 56rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.home-static .hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.home-static .hero-btn-primary,
+.home-static .hero-phone-box {
+  height: 5.2rem;
+  min-height: 5.2rem;
+  padding: 1.25rem 2.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 0.3rem;
+  transition: var(--transition);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.home-static .hero-btn-primary {
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  box-shadow: none;
+  text-decoration: none;
+  transition: none;
+  margin: 0;
+}
+
+.home-static .hero-btn-primary:hover {
+  background: var(--gold);
+  color: var(--black);
+  transform: none;
+  box-shadow: none;
+}
+
+.home-static .hero-phone-box {
+  gap: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  border: 2px solid var(--white);
+  background: transparent;
+  text-decoration: none;
+  margin: 0;
+}
+
+.home-static .hero-phone-box:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+.home-static .hero-phone-box i {
+  font-size: 1.6rem;
+}
+
 .about .row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -725,7 +890,7 @@ section {
 }
 
 .about .heading::after {
-  background: var(--gradient-primary);
+  background: var(--gradient-gold);
 }
 
 .about .row .content {
@@ -912,7 +1077,7 @@ section {
 .service-card-title {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #b8860b;
+  color: var(--gold);
   margin: 0 0 0.75rem;
   text-transform: capitalize;
   line-height: 1.2;
@@ -934,18 +1099,18 @@ section {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   text-decoration: none;
-  color: #b8860b;
-  border: 2px solid #b8860b;
+  color: var(--accent);
+  border: 2px solid var(--accent);
   border-radius: 0.4rem;
   background: transparent;
   transition: background 0.2s, color 0.2s;
 }
 .service-card-btn:hover {
-  background: #b8860b;
+  background: var(--accent);
   color: var(--white);
 }
 .service-card-cta {
-  background: #c9a227;
+  background: var(--accent);
   justify-content: center;
 }
 .service-card-cta .service-card-body {
@@ -964,7 +1129,7 @@ section {
 }
 .service-card-cta-btn:hover {
   background: var(--white);
-  color: #b8860b;
+  color: var(--accent);
 }
 
 .projects {
@@ -1087,7 +1252,7 @@ section {
 }
 
 .reviews .heading::after {
-  background: var(--gradient-primary);
+  background: var(--gradient-wood);
 }
 
 .reviews-header {
@@ -1444,7 +1609,7 @@ section {
 }
 
 .footer-logo-accent {
-  color: var(--yellow);
+  color: var(--gold);
 }
 
 .footer-tagline {
@@ -1462,7 +1627,7 @@ section {
   letter-spacing: 0.08em;
   margin: 0 0 1.5rem;
   padding-bottom: 0.75rem;
-  border-bottom: 0.2rem solid var(--yellow);
+  border-bottom: 0.2rem solid var(--gold);
   display: inline-block;
 }
 
@@ -1487,7 +1652,7 @@ section {
 
 .footer-links a:hover,
 .footer-contact a:hover {
-  color: var(--yellow);
+  color: var(--gold);
   padding-left: 0.3rem;
 }
 
@@ -1498,7 +1663,7 @@ section {
 }
 
 .footer-contact li i {
-  color: var(--yellow);
+  color: var(--gold);
   font-size: 1.6rem;
   margin-top: 0.2rem;
   flex-shrink: 0;
@@ -1551,7 +1716,7 @@ section {
 }
 
 .footer-social-link:hover {
-  background: var(--yellow);
+  background: var(--gold);
   color: var(--black);
   transform: translateY(-2px);
 }
@@ -1585,7 +1750,7 @@ section {
 
 @media (max-width: 1200px) {
   .header {
-    padding: 0.75rem 2rem;
+    padding: 12px 2rem;
   }
   section {
     padding: 3rem 5%;
@@ -1604,8 +1769,7 @@ section {
     padding: 3rem 2rem;
   }
   .header {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding: 12px 1.5rem;
     flex-wrap: nowrap;
     gap: 0.5rem;
   }
@@ -1682,12 +1846,12 @@ section {
   }
   .header .navbar > a:hover,
   .header .navbar .nav-dropdown-trigger:hover {
-    color: var(--yellow);
+    color: var(--gold);
   }
   .header .navbar > a.active,
   .header .navbar .nav-dropdown-trigger.active {
-    color: var(--yellow);
-    border-bottom: 2px solid var(--yellow);
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
     font-weight: 600;
   }
   .header .nav-dropdown-trigger {
@@ -1727,7 +1891,7 @@ section {
     color: rgba(255, 255, 255, 0.85);
   }
   .header .nav-dropdown-content a:hover {
-    color: var(--yellow);
+    color: var(--gold);
     background: transparent;
   }
   .header .nav-dropdown:not(.open) .nav-dropdown-content {
@@ -1759,8 +1923,7 @@ section {
 
 @media (max-width: 768px) {
   .header {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    padding: 12px 1.25rem;
   }
   .header-cta-btn {
     padding: 0.6rem 1rem;
@@ -1830,8 +1993,7 @@ section {
     font-size: 50%;
   }
   .header {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 12px 1rem;
   }
   .header-cta-btn {
     padding: 0.55rem 0.9rem;
@@ -1869,6 +2031,13 @@ section {
   }
   .home .slide {
     min-height: 35vh;
+  }
+  .home-static .hero-content {
+    padding: 3rem 5%;
+  }
+  .home-static .hero-ctas {
+    flex-direction: column;
+    align-items: flex-start;
   }
   .stats-grid {
     grid-template-columns: 1fr;
@@ -2031,6 +2200,11 @@ section {
   box-shadow: 0 0 0 3px rgba(245, 191, 35, 0.1);
 }
 
+.quote-section .btn-primary,
+.quote-section .btn-primary:hover {
+  color: var(--white);
+}
+
 /* FAQ Section */
 .faq {
   background: var(--black);
@@ -2068,12 +2242,12 @@ section {
 }
 
 .faq-question:hover {
-  color: var(--yellow);
+  color: var(--gold);
 }
 
 .faq-question i {
   transition: var(--transition);
-  color: var(--yellow);
+  color: var(--gold);
 }
 
 .faq-item.active .faq-question i {
@@ -2179,14 +2353,14 @@ section {
 
 .cta-content h2 {
   font-size: 4rem;
-  color: var(--black);
+  color: var(--white);
   margin-bottom: 1.5rem;
   font-weight: 800;
 }
 
 .cta-content p {
   font-size: 1.8rem;
-  color: var(--black);
+  color: var(--white);
   margin-bottom: 3rem;
   max-width: 60rem;
   margin-left: auto;
@@ -2214,7 +2388,7 @@ section {
 .stat-item .number {
   font-size: 5rem;
   font-weight: 800;
-  color: var(--yellow);
+  color: var(--white);
   display: block;
   margin-bottom: 1rem;
   line-height: 1;

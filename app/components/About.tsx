@@ -32,28 +32,6 @@ export default function About() {
           <a href="#services" className="btn" style={{ marginTop: '2rem' }}>Our Services</a>
         </div>
       </div>
-
-      <div className="box-container">
-        <div className="box">
-          <h3>10+</h3>
-          <p>years of experience</p>
-        </div>
-
-        <div className="box">
-          <h3>1500+</h3>
-          <p>project completed</p>
-        </div>
-
-        <div className="box">
-          <h3>790+</h3>
-          <p>satiesfied clients</p>
-        </div>
-
-        <div className="box">
-          <h3>450+</h3>
-          <p>active workers</p>
-        </div>
-      </div>
     </section>
   )
 }

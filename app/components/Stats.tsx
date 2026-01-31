@@ -55,7 +55,7 @@ export default function Stats() {
       <div className="stats-grid">
         {stats.map((stat, index) => (
           <div key={index} className="stat-item">
-            <i className={stat.icon} style={{ fontSize: '3rem', color: 'var(--yellow)', marginBottom: '1rem' }}></i>
+            <i className={stat.icon} style={{ fontSize: '3rem', color: 'var(--white)', marginBottom: '1rem' }}></i>
             <span className="number">{stat.number}+</span>
             <div className="label">{stat.label}</div>
           </div>

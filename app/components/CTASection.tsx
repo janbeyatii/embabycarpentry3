@@ -11,7 +11,7 @@ export default function CTASection() {
             <i className="fas fa-calculator" style={{ marginRight: '1rem' }}></i>
             Get Free Quote
           </a>
-          <a href="#contact" className="btn btn-outline" style={{ borderColor: 'var(--black)', color: 'var(--black)' }}>
+          <a href="#contact" className="btn btn-outline" style={{ borderColor: 'var(--white)', color: 'var(--white)' }}>
             <i className="fas fa-phone" style={{ marginRight: '1rem' }}></i>
             Call Us Now
           </a>
