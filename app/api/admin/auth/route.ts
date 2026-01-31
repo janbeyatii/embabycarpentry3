@@ -30,7 +30,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const adminPasswordHash = (process.env.ADMIN_PASSWORD_HASH || '').trim()
+    // Normalize: env may contain \$ if user escaped for .env; Vercel may pass through as-is
+    let adminPasswordHash = (process.env.ADMIN_PASSWORD_HASH || '').trim().replace(/\\\$/g, '$')
 
     if (!adminPasswordHash) {
       console.error('ADMIN_PASSWORD_HASH not configured')
@@ -40,7 +41,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Next.js/Vercel expands $ in env — unescaped hash gets corrupted. Must use escaped form.
     const validPrefix = adminPasswordHash.startsWith('$2a$') || adminPasswordHash.startsWith('$2b$')
     if (!validPrefix) {
       console.error('ADMIN_PASSWORD_HASH is invalid (missing $2a$ or $2b$ prefix). Run: node scripts/generate-env.js and use the escaped ADMIN_PASSWORD_HASH= line it prints in Vercel / .env')
