@@ -53,8 +53,9 @@ export default function Projects() {
     if (!PORTFOLIO_LIGHTBOX_ENABLED || !containerRef.current || projects.length === 0 || typeof window === 'undefined') return
     const el = containerRef.current
 
-    const onInit = (e: { detail?: { instance?: { closeGallery?: () => void } } }) => {
-      galleryInstanceRef.current = e.detail?.instance ?? null
+    const onInit = (e: Event) => {
+      const ev = e as CustomEvent<{ instance?: { closeGallery?: () => void } }>
+      galleryInstanceRef.current = ev.detail?.instance ?? null
     }
     const onAfterOpen = () => {
       const existing = document.querySelector('.portfolio-lightbox-close')
@@ -82,9 +83,9 @@ export default function Projects() {
       document.querySelector('.portfolio-lightbox-close')?.remove()
     }
 
-    el.addEventListener('lgInit', onInit)
-    el.addEventListener('lgAfterOpen', onAfterOpen)
-    el.addEventListener('lgAfterClose', onAfterClose)
+    el.addEventListener('lgInit', onInit as EventListener)
+    el.addEventListener('lgAfterOpen', onAfterOpen as EventListener)
+    el.addEventListener('lgAfterClose', onAfterClose as EventListener)
 
     let attempts = 0
     const maxAttempts = 50
@@ -101,9 +102,9 @@ export default function Projects() {
     }
     if (initGallery()) {
       return () => {
-        el.removeEventListener('lgInit', onInit)
-        el.removeEventListener('lgAfterOpen', onAfterOpen)
-        el.removeEventListener('lgAfterClose', onAfterClose)
+        el.removeEventListener('lgInit', onInit as EventListener)
+        el.removeEventListener('lgAfterOpen', onAfterOpen as EventListener)
+        el.removeEventListener('lgAfterClose', onAfterClose as EventListener)
         document.querySelector('.portfolio-lightbox-close')?.remove()
       }
     }
@@ -115,9 +116,9 @@ export default function Projects() {
     }, 100)
     return () => {
       clearInterval(t)
-      el.removeEventListener('lgInit', onInit)
-      el.removeEventListener('lgAfterOpen', onAfterOpen)
-      el.removeEventListener('lgAfterClose', onAfterClose)
+      el.removeEventListener('lgInit', onInit as EventListener)
+      el.removeEventListener('lgAfterOpen', onAfterOpen as EventListener)
+      el.removeEventListener('lgAfterClose', onAfterClose as EventListener)
       document.querySelector('.portfolio-lightbox-close')?.remove()
     }
   }, [projects])
