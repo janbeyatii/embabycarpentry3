@@ -20,6 +20,21 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
+    const root = document.documentElement
+    if (navbarActive) {
+      root.classList.add('menu-open')
+      document.body.classList.add('menu-open')
+    } else {
+      root.classList.remove('menu-open')
+      document.body.classList.remove('menu-open')
+    }
+    return () => {
+      root.classList.remove('menu-open')
+      document.body.classList.remove('menu-open')
+    }
+  }, [navbarActive])
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {

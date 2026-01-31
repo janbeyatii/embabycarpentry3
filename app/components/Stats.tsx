@@ -6,7 +6,6 @@ export default function Stats() {
   const [counters, setCounters] = useState({
     projects: 0,
     clients: 0,
-    workers: 0,
     experience: 0
   })
 
@@ -14,7 +13,6 @@ export default function Stats() {
     const targetCounts = {
       projects: 1500,
       clients: 790,
-      workers: 450,
       experience: 10
     }
 
@@ -30,7 +28,6 @@ export default function Stats() {
       setCounters({
         projects: Math.floor(targetCounts.projects * progress),
         clients: Math.floor(targetCounts.clients * progress),
-        workers: Math.floor(targetCounts.workers * progress),
         experience: Math.floor(targetCounts.experience * progress)
       })
 
@@ -46,7 +43,6 @@ export default function Stats() {
   const stats = [
     { number: counters.projects, label: 'Projects Completed', icon: 'fas fa-building' },
     { number: counters.clients, label: 'Satisfied Clients', icon: 'fas fa-smile' },
-    { number: counters.workers, label: 'Expert Workers', icon: 'fas fa-users' },
     { number: counters.experience, label: 'Years Experience', icon: 'fas fa-calendar-alt' }
   ]
 
