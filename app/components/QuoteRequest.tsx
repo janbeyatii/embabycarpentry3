@@ -53,6 +53,7 @@ export default function QuoteRequest() {
                 <input
                   type="text"
                   name="name"
+                  autoComplete="name"
                   placeholder="Your Name *"
                   value={formData.name}
                   onChange={handleChange}
@@ -63,6 +64,7 @@ export default function QuoteRequest() {
                 <input
                   type="email"
                   name="email"
+                  autoComplete="email"
                   placeholder="Your Email *"
                   value={formData.email}
                   onChange={handleChange}
@@ -73,6 +75,7 @@ export default function QuoteRequest() {
                 <input
                   type="tel"
                   name="phone"
+                  autoComplete="tel"
                   placeholder="Phone Number *"
                   value={formData.phone}
                   onChange={handleChange}

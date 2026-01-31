@@ -1,11 +1,11 @@
 import Header from './components/Header'
+import OffersBanner from './components/OffersBanner'
 import Home from './components/Home'
 import About from './components/About'
 import Services from './components/Services'
 import Stats from './components/Stats'
 import Projects from './components/Projects'
 import Certifications from './components/Certifications'
-import Team from './components/Team'
 import Reviews from './components/Reviews'
 import QuoteRequest from './components/QuoteRequest'
 import FAQ from './components/FAQ'
@@ -20,13 +20,13 @@ export default function Page() {
   return (
     <>
       <Header />
+      <OffersBanner />
       <Home />
       <Stats />
       <About />
       <Services />
       <Certifications />
       <Projects />
-      <Team />
       <Reviews />
       <QuoteRequest />
       <FAQ />

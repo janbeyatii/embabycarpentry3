@@ -4,51 +4,38 @@ export default function Services() {
   const services = [
     { 
       img: '/images/service-1.png', 
-      title: 'Building Construction', 
-      desc: 'Complete construction services from foundation to finish. We handle residential and commercial projects with precision and quality craftsmanship.',
-      icon: 'fas fa-building'
+      title: 'Kitchens', 
+      desc: 'Complete kitchen renovation, design, and installation. Custom cabinets, countertops, and modern fixtures.',
+      icon: 'fas fa-utensils',
+      category: 'kitchens'
     },
     { 
       img: '/images/service-2.png', 
-      title: 'House Renovation', 
-      desc: 'Transform your existing space with our expert renovation services. Kitchen, bathroom, and whole-house renovations tailored to your vision.',
-      icon: 'fas fa-home'
+      title: 'Bath', 
+      desc: 'Bathroom remodeling and renovation services. Transform your space with quality fixtures and finishes.',
+      icon: 'fas fa-bath',
+      category: 'bath'
     },
     { 
       img: '/images/service-3.png', 
-      title: 'Architecture Design', 
-      desc: 'Professional architectural design services. From concept to completion, we bring your ideas to life with innovative and functional designs.',
-      icon: 'fas fa-drafting-compass'
+      title: 'Basement', 
+      desc: 'Basement finishing and renovation. Create additional living space with professional craftsmanship.',
+      icon: 'fas fa-home',
+      category: 'basement'
     },
     { 
       img: '/images/service-4.png', 
-      title: 'Material Supply', 
-      desc: 'Quality materials at competitive prices. We source the best materials and ensure timely delivery to keep your project on schedule.',
-      icon: 'fas fa-truck'
+      title: 'Deck and Fences', 
+      desc: 'Custom deck construction and fence installation. Enhance your outdoor living space with durable materials.',
+      icon: 'fas fa-th',
+      category: 'deck-fences'
     },
     { 
       img: '/images/service-5.png', 
-      title: 'Construction Consulting', 
-      desc: 'Expert consultation for your construction needs. Get professional advice on planning, budgeting, and project management.',
-      icon: 'fas fa-clipboard-check'
-    },
-    { 
-      img: '/images/service-6.png', 
-      title: 'Interior Design', 
-      desc: 'Beautiful interior spaces that reflect your style. Our design team creates functional and aesthetically pleasing interiors.',
-      icon: 'fas fa-paint-roller'
-    },
-    { 
-      img: '/images/service-7.png', 
-      title: 'Building Maintenance', 
-      desc: 'Regular maintenance to keep your property in top condition. Preventive care and repairs to extend the life of your building.',
-      icon: 'fas fa-tools'
-    },
-    { 
-      img: '/images/service-8.png', 
-      title: 'Building Renovation', 
-      desc: 'Comprehensive renovation services for commercial and residential buildings. Modernize and improve your property value.',
-      icon: 'fas fa-hammer'
+      title: 'Sheds', 
+      desc: 'Custom shed design and construction. Functional storage solutions tailored to your needs.',
+      icon: 'fas fa-warehouse',
+      category: 'sheds'
     },
   ]
 
@@ -79,8 +66,8 @@ export default function Services() {
             </div>
             <h3>{service.title}</h3>
             <p>{service.desc}</p>
-            <a href="#quote" className="btn" style={{ marginTop: '1.5rem', fontSize: '1.4rem', padding: '0.8rem 2rem' }}>
-              Learn More <i className="fas fa-arrow-right" style={{ marginLeft: '0.5rem' }}></i>
+            <a href={`#quote?service=${service.category}`} className="btn" style={{ marginTop: '1.5rem', fontSize: '1.4rem', padding: '0.8rem 2rem' }}>
+              Get Quote <i className="fas fa-arrow-right" style={{ marginLeft: '0.5rem' }}></i>
             </a>
           </div>
         ))}

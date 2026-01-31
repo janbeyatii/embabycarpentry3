@@ -6,17 +6,16 @@ import Image from 'next/image'
 export default function Header() {
   const [navbarActive, setNavbarActive] = useState(false)
   const [searchActive, setSearchActive] = useState(false)
-  const [loginActive, setLoginActive] = useState(false)
   const [contactInfoActive, setContactInfoActive] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<'work' | 'about' | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
       setNavbarActive(false)
       setSearchActive(false)
-      setLoginActive(false)
       setContactInfoActive(false)
-      
+      setOpenDropdown(null)
       if (window.scrollY > 50) {
         setScrolled(true)
       } else {
@@ -28,28 +27,67 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const closeNav = () => {
+    setNavbarActive(false)
+    setOpenDropdown(null)
+  }
+
   return (
     <>
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-        <a href="#" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <a href="#" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <Image 
             src="/images/logo.png" 
             alt="Embaby Carpentry" 
-            width={60} 
-            height={60}
+            width={48} 
+            height={48}
             style={{ objectFit: 'contain' }}
           />
-          <span style={{ fontSize: '2.5rem', fontWeight: '700' }}>Embaby <span style={{ color: 'var(--yellow)' }}>Carpentry</span></span>
+          <span style={{ fontSize: '2.2rem', fontWeight: '700' }}>Embaby <span style={{ color: 'var(--yellow)' }}>Carpentry</span></span>
         </a>
 
         <nav className={`navbar ${navbarActive ? 'active' : ''}`}>
-          <a href="#home">home</a>
-          <a href="#about">about</a>
-          <a href="#services">services</a>
-          <a href="#projects">projects</a>
-          <a href="#team">team</a>
-          <a href="#contact">contact</a>
-          <a href="#blogs">blogs</a>
+          <a href="#home" onClick={closeNav}>Home</a>
+          <a href="#services" onClick={closeNav}>Services</a>
+          <div
+            className={`nav-dropdown ${openDropdown === 'work' ? 'open' : ''}`}
+            onMouseEnter={() => !navbarActive && setOpenDropdown('work')}
+            onMouseLeave={() => setOpenDropdown(null)}
+          >
+            <button
+              type="button"
+              className="nav-dropdown-trigger"
+              onClick={() => setOpenDropdown(openDropdown === 'work' ? null : 'work')}
+              aria-expanded={openDropdown === 'work'}
+              aria-haspopup="true"
+            >
+              Our Work <i className="fas fa-chevron-down" style={{ fontSize: '1.2rem', marginLeft: '0.3rem' }} />
+            </button>
+            <div className="nav-dropdown-content">
+              <a href="#projects" onClick={closeNav}>Projects</a>
+              <a href="/woodworking" onClick={closeNav}>Woodworking</a>
+            </div>
+          </div>
+          <div
+            className={`nav-dropdown ${openDropdown === 'about' ? 'open' : ''}`}
+            onMouseEnter={() => !navbarActive && setOpenDropdown('about')}
+            onMouseLeave={() => setOpenDropdown(null)}
+          >
+            <button
+              type="button"
+              className="nav-dropdown-trigger"
+              onClick={() => setOpenDropdown(openDropdown === 'about' ? null : 'about')}
+              aria-expanded={openDropdown === 'about'}
+              aria-haspopup="true"
+            >
+              About <i className="fas fa-chevron-down" style={{ fontSize: '1.2rem', marginLeft: '0.3rem' }} />
+            </button>
+            <div className="nav-dropdown-content">
+              <a href="#about" onClick={closeNav}>About Us</a>
+            </div>
+          </div>
+          <a href="#contact" onClick={closeNav}>Contact</a>
+          <a href="#blogs" onClick={closeNav}>Blogs</a>
         </nav>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -57,18 +95,11 @@ export default function Header() {
             <div id="menu-btn" className="fas fa-bars" onClick={() => {
               setNavbarActive(!navbarActive)
               setSearchActive(false)
-              setLoginActive(false)
             }}></div>
             <div id="info-btn" className="fas fa-info-circle" onClick={() => setContactInfoActive(true)}></div>
             <div id="search-btn" className="fas fa-search" onClick={() => {
               setSearchActive(!searchActive)
               setNavbarActive(false)
-              setLoginActive(false)
-            }}></div>
-            <div id="login-btn" className="fas fa-user" onClick={() => {
-              setLoginActive(!loginActive)
-              setNavbarActive(false)
-              setSearchActive(false)
             }}></div>
           </div>
         </div>
@@ -76,19 +107,6 @@ export default function Header() {
         <form className={`search-form ${searchActive ? 'active' : ''}`}>
           <input type="search" name="" placeholder="search here..." id="search-box" />
           <label htmlFor="search-box" className="fas fa-search"></label>
-        </form>
-
-        <form className={`login-form ${loginActive ? 'active' : ''}`}>
-          <h3>login form</h3>
-          <input type="email" placeholder="enter your email" className="box" />
-          <input type="password" placeholder="enter your password" className="box" />
-          <div className="flex">
-            <input type="checkbox" name="" id="remember-me" />
-            <label htmlFor="remember-me">remember me</label>
-            <a href="#">forgot password?</a>
-          </div>
-          <input type="submit" value="login now" className="btn" />
-          <p>don&apos;t have an account <a href="#">create one!</a></p>
         </form>
       </header>
 
