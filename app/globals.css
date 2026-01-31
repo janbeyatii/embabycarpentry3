@@ -1791,8 +1791,8 @@ section {
     transition: var(--transition);
   }
   .header .menu-btn:hover {
-    border-color: var(--yellow);
-    color: var(--yellow);
+    border-color: var(--gold);
+    color: var(--gold);
   }
   .header .menu-btn .menu-btn-bar {
     display: block;
