@@ -291,7 +291,7 @@ section {
 
 .header .navbar > a,
 .header .navbar .nav-dropdown {
-  margin: 0 0.6rem;
+  margin: 0 1.5rem;
 }
 
 .header .navbar a {
@@ -802,6 +802,7 @@ section {
 }
 
 .home-static .hero-btn-primary,
+.home-static .hero-btn-woodworking,
 .home-static .hero-phone-box {
   height: 5.2rem;
   min-height: 5.2rem;
@@ -836,6 +837,30 @@ section {
   box-shadow: none;
 }
 
+.home-static .hero-btn-woodworking {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: none;
+  margin: 0;
+}
+
+.home-static .hero-btn-woodworking:hover {
+  background: var(--gold);
+  color: var(--black);
+  transform: none;
+  box-shadow: none;
+}
+
+.home-static .hero-btn-woodworking i {
+  font-size: 1.5rem;
+}
+
 .home-static .hero-phone-box {
   gap: 1rem;
   font-weight: 600;
@@ -845,11 +870,14 @@ section {
   background: transparent;
   text-decoration: none;
   margin: 0;
+  box-shadow: none;
 }
 
 .home-static .hero-phone-box:hover {
   background: var(--white);
   color: var(--black);
+  transform: none;
+  box-shadow: none;
 }
 
 .home-static .hero-phone-box i {
@@ -1309,27 +1337,67 @@ section {
   max-width: 50rem;
 }
 
-.reviews-google-banner {
+.reviews-google-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  background: var(--white);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.reviews-google-badge-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  padding: 1rem 1.5rem;
   flex-shrink: 0;
-  background: var(--white);
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.06);
 }
+
+.reviews-google-badge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.reviews-google-badge-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #3c4043;
+}
+
+.reviews-google-badge-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.reviews-google-badge-stars .reviews-google-star {
+  color: #FBBC04;
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.reviews-google-badge-stars .reviews-google-badge-rating {
+  margin-left: 0.4rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #3c4043;
+}
+
 @media (max-width: 576px) {
   .reviews-header {
     flex-direction: column;
     align-items: stretch;
   }
-  .reviews-google-banner {
-    align-self: center;
+  .reviews-google-badge {
+    align-self: flex-start;
   }
 }
+
 .reviews-google-banner-logo {
   display: inline-flex;
   align-items: center;
@@ -1375,16 +1443,8 @@ section {
 
 .google-review-meta {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.google-review-avatar {
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .google-review-name {
@@ -1486,6 +1546,17 @@ section {
 
 .contact .heading {
   color: var(--white);
+}
+
+.contact-service-areas {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: -1rem 0 2rem;
+  padding: 1.5rem 2rem;
+  background: var(--black-light);
+  border-left: 0.4rem solid var(--gold);
+  max-width: 70rem;
 }
 
 .contact .row {
@@ -2154,7 +2225,7 @@ section {
   .cert-grid {
     grid-template-columns: 1fr;
   }
-  .quote-form > form > div {
+  .quote-form-grid {
     grid-template-columns: 1fr !important;
   }
 }
@@ -2254,10 +2325,11 @@ section {
 
 /* Quote Request Section */
 .quote-section {
-  background: var(--gradient-dark);
+  background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 50%, #0a0a0a 100%);
   color: var(--white);
   position: relative;
   overflow: hidden;
+  padding: 6rem 10% !important;
 }
 
 .quote-section::before {
@@ -2267,51 +2339,179 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M0 50 L100 50 M50 0 L50 100" stroke="rgba(245,191,35,0.1)" stroke-width="1"/></svg>');
-  opacity: 0.3;
+  background: radial-gradient(ellipse at 20% 50%, rgba(201, 162, 39, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 80%, rgba(201, 162, 39, 0.05) 0%, transparent 40%);
+  pointer-events: none;
 }
 
-.quote-section .heading {
+.quote-section-inner {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.quote-section-title {
+  font-size: 3.2rem;
+  font-weight: 700;
   color: var(--white);
-  border-left-color: var(--yellow);
+  text-align: center;
+  margin: 0 0 1rem;
+  letter-spacing: 0.02em;
+}
+
+.quote-section-subtitle {
+  font-size: 1.7rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0 0 4rem;
+  line-height: 1.6;
+  max-width: 52rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.quote-form-card {
+  background: var(--light-bg-2);
+  border: var(--border);
+  border-radius: 1.2rem;
+  padding: 3.5rem;
+  box-shadow: var(--box-shadow-xl);
 }
 
 .quote-form {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 3rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.quote-form .form-group {
-  margin-bottom: 2rem;
+.quote-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.quote-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.quote-form-field-full {
+  grid-column: 1 / -1;
+}
+
+.quote-form label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .quote-form input,
 .quote-form select,
 .quote-form textarea {
   width: 100%;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid transparent;
-  border-radius: 0.5rem;
-  font-size: 1.6rem;
+  padding: 1.3rem 1.5rem;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  background: var(--black);
+  border: var(--border);
+  border-radius: 0.6rem;
+  font-family: inherit;
   transition: var(--transition);
+}
+
+.quote-form input::placeholder,
+.quote-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .quote-form input:focus,
 .quote-form select:focus,
 .quote-form textarea:focus {
   outline: none;
-  border-color: var(--yellow);
-  background: var(--white);
-  box-shadow: 0 0 0 3px rgba(245, 191, 35, 0.1);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.2);
 }
 
-.quote-section .btn-primary,
-.quote-section .btn-primary:hover {
+.quote-form select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ccc' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.5rem center;
+  padding-right: 4rem;
+}
+
+.quote-form textarea {
+  resize: vertical;
+  min-height: 12rem;
+}
+
+.quote-form-submit {
+  padding: 1.6rem 2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--black);
+  background: var(--gold);
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.quote-form-submit:hover:not(:disabled) {
+  background: var(--gold-dark);
   color: var(--white);
+  transform: translateY(-1px);
+}
+
+.quote-form-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.quote-form-success {
+  color: var(--gold);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.quote-form-success i {
+  font-size: 1.8rem;
+}
+
+.quote-form-error {
+  color: #e57373;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .quote-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .quote-form-card {
+    padding: 2.5rem;
+  }
+  .quote-section {
+    padding: 4rem 5% !important;
+  }
+}
+
+/* Legacy quote-form for backwards compat */
+.quote-form .form-group {
+  margin-bottom: 2rem;
 }
 
 /* FAQ Section */
@@ -2576,6 +2776,780 @@ section {
   transform: translateY(-5px);
 }
 
+/* ========== Standalone Pages (About, Contact, Services, Our Work) ========== */
+body:has(.our-work-hero),
+body:has(.about-page),
+body:has(.contact-page),
+body:has(.services-page),
+body:has(.service-page-hero),
+body:has(.woodworking-page) {
+  background: var(--black);
+}
+
+/* Woodworking Page */
+.woodworking-hero {
+  padding: 8rem 10% 5rem !important;
+  background: var(--black) !important;
+  text-align: center;
+}
+
+.woodworking-hero .heading {
+  color: var(--text-primary) !important;
+  margin-bottom: 2rem;
+}
+
+.woodworking-hero .heading-center {
+  text-align: center;
+  padding-left: 0;
+  border-left: none;
+  padding-bottom: 1rem;
+  margin-bottom: 4rem;
+  border-bottom: 0.3rem solid var(--gold);
+}
+
+.woodworking-hero-text {
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  max-width: 60rem;
+  margin: 0 auto 4rem;
+  line-height: 1.7;
+}
+
+.woodworking-products {
+  padding: 5rem 10% !important;
+  background: var(--black-light) !important;
+}
+
+.woodworking-empty {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-secondary);
+}
+
+.woodworking-empty-text {
+  font-size: 1.8rem;
+}
+
+.woodworking-empty-sub {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+.woodworking-empty-btn {
+  margin-top: 2rem;
+  display: inline-block;
+}
+
+.woodworking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.woodworking-product-card {
+  background: var(--black);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  border: var(--border);
+  transition: var(--transition);
+}
+
+.woodworking-product-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.woodworking-product-image {
+  height: 30rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.woodworking-product-body {
+  padding: 2rem;
+}
+
+.woodworking-product-title {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.woodworking-product-desc {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.woodworking-product-dims {
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.woodworking-product-materials {
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.woodworking-product-btn {
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+.woodworking-custom-cta {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 3rem;
+  background: var(--black);
+  border-radius: 1rem;
+  border: var(--border);
+}
+
+.woodworking-custom-title {
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.woodworking-custom-desc {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.woodworking-booking {
+  padding: 5rem 10% 6rem !important;
+  background: var(--black) !important;
+}
+
+.woodworking-booking-wrapper {
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
+  background: var(--black-light);
+  border: var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+}
+
+.woodworking-booking-embed {
+  width: 100%;
+  min-height: 700px;
+  border: none;
+}
+
+.woodworking-booking-placeholder {
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.woodworking-booking-placeholder code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 1.3rem;
+}
+
+.our-work-hero {
+  padding: 8rem 10% 5rem !important;
+  background: var(--black) !important;
+  text-align: center;
+}
+
+.our-work-hero .heading {
+  color: var(--text-primary) !important;
+  margin-bottom: 2rem;
+}
+
+.our-work-hero .heading-center {
+  text-align: center;
+  padding-left: 0;
+  border-left: none;
+  padding-bottom: 1rem;
+  margin-bottom: 4rem;
+  border-bottom: 0.3rem solid var(--gold);
+}
+
+.our-work-hero p {
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  max-width: 60rem;
+  margin: 0 auto 4rem;
+  line-height: 1.7;
+}
+
+/* Individual Service Page */
+.service-page-hero {
+  position: relative;
+  min-height: 35rem;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 4rem !important;
+}
+
+.service-page-hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.service-page-hero-img {
+  object-fit: cover;
+}
+
+.service-page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 100%);
+  z-index: 1;
+}
+
+.service-page-hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 0 10%;
+  text-align: center;
+}
+
+.service-page-hero-content .heading {
+  color: var(--text-primary) !important;
+  margin-bottom: 1rem;
+}
+
+.service-page-hero-desc {
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  max-width: 60rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.service-page-content {
+  padding: 5rem 10% 6rem !important;
+  background: var(--black-light) !important;
+}
+
+.service-page-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.service-page-intro {
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0 0 3rem;
+}
+
+.service-page-section-title {
+  font-size: 2.2rem;
+  color: var(--gold);
+  margin: 0 0 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.service-page-highlights {
+  list-style: none;
+  margin: 0 0 3rem;
+  padding: 0;
+}
+
+.service-page-highlights li {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  padding: 0.8rem 0;
+  padding-left: 2.5rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.service-page-highlights li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.service-page-body {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0 0 3rem;
+}
+
+.service-page-cta {
+  background: var(--black);
+  border: var(--border);
+  border-radius: 1rem;
+  padding: 3rem;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.service-page-cta-text {
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  margin: 0 0 2rem;
+  line-height: 1.6;
+}
+
+.service-page-back {
+  padding-top: 2rem;
+  border-top: var(--border);
+}
+
+.service-page-back-link {
+  font-size: 1.5rem;
+  color: var(--gold);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.service-page-back-link:hover {
+  color: var(--text-primary);
+}
+
+.our-work-portfolio {
+  padding: 3rem 10% 6rem !important;
+  background: var(--black-light) !important;
+}
+
+.our-work-portfolio .our-work-category {
+  margin-bottom: 5rem;
+}
+
+.our-work-portfolio .our-work-category-title {
+  font-size: 2.4rem;
+  color: var(--gold);
+  margin-bottom: 2rem;
+  padding-left: 1.5rem;
+  border-left: 0.4rem solid var(--gold);
+  font-weight: 600;
+}
+
+.our-work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
+  gap: 2.5rem;
+}
+
+.our-work-cta {
+  padding: 4rem 10% !important;
+  background: var(--black) !important;
+  text-align: center;
+}
+
+.our-work-cta h2 {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.our-work-cta p {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.our-work-cta .btn {
+  background: var(--gold);
+  color: var(--black);
+  margin: 0;
+}
+
+.our-work-cta .btn:hover {
+  background: var(--gold-dark);
+  color: var(--black);
+}
+
+.our-work-empty {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-secondary);
+}
+
+.our-work-empty p {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.our-work-empty p + p {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+.portfolio-project-card {
+  background: var(--black);
+  border: var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  transition: var(--transition);
+  width: 100%;
+  display: block;
+}
+
+.portfolio-project-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: 24rem;
+  overflow: hidden;
+}
+
+.portfolio-modal-image-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 40rem;
+  overflow: hidden;
+}
+
+.portfolio-project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-xl);
+  border-color: var(--gold) !important;
+}
+
+/* ========== Contact Page Layout ========== */
+.contact-page-hero {
+  padding: 8rem 10% 5rem !important;
+  background: var(--black) !important;
+  text-align: center;
+}
+
+.contact-page-hero .heading {
+  color: var(--text-primary) !important;
+}
+
+.contact-page-hero-text {
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  max-width: 60rem;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.contact-page-content {
+  padding: 4rem 10% 6rem !important;
+  background: var(--black-light) !important;
+}
+
+.contact-page-grid {
+  display: flex;
+  gap: 4rem;
+  max-width: 120rem;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.contact-page-sidebar {
+  flex: 0 0 32rem;
+}
+
+.contact-page-sidebar-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contact-page-follow-title {
+  margin-top: 4rem;
+}
+
+.contact-page-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-page-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.contact-page-info-icon {
+  width: 4rem;
+  height: 4rem;
+  min-width: 4rem;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+.contact-page-info-item a,
+.contact-page-info-item span {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.contact-page-info-item a:hover {
+  color: var(--gold);
+}
+
+.contact-page-social {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.contact-page-social-link {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  transition: var(--transition);
+}
+
+.contact-page-social-link:hover {
+  background: var(--gold-dark);
+  color: var(--white);
+  transform: scale(1.08);
+}
+
+.contact-page-service-areas {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: var(--border);
+}
+
+.contact-page-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-page-intro {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0 0 3rem;
+}
+
+.contact-page-booking-wrapper {
+  width: 100%;
+  background: var(--light-bg-2);
+  border: var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+}
+
+.contact-page-booking-embed {
+  width: 100%;
+  min-height: 700px;
+  border: none;
+}
+
+.contact-page-booking-placeholder {
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.contact-page-booking-placeholder code {
+  background: rgba(0,0,0,0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 1.3rem;
+}
+
+.contact-page-form-title {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin: 0 0 2rem;
+  text-transform: capitalize;
+}
+
+.contact-page-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-page-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.contact-page-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.contact-page-form-field-full {
+  grid-column: 1 / -1;
+}
+
+.contact-page-form label {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.contact-page-form input,
+.contact-page-form select,
+.contact-page-form textarea {
+  padding: 1.2rem 1.5rem;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  background: var(--black);
+  border: var(--border);
+  border-radius: 0.5rem;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+.contact-page-form input::placeholder,
+.contact-page-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.contact-page-form input:focus,
+.contact-page-form select:focus,
+.contact-page-form textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.contact-page-form select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ccc' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.5rem center;
+  padding-right: 4rem;
+}
+
+.contact-page-form textarea {
+  resize: vertical;
+  min-height: 12rem;
+}
+
+.contact-page-submit {
+  padding: 1.5rem 2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--black);
+  background: var(--gold);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 0.5rem;
+}
+
+.contact-page-submit:hover {
+  background: var(--gold-dark);
+  color: var(--white);
+}
+
+.contact-page-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.contact-form-success {
+  color: var(--gold);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.contact-form-error {
+  color: #e57373;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .contact-page-grid {
+    flex-direction: column;
+  }
+  .contact-page-sidebar {
+    flex: none;
+    width: 100%;
+  }
+  .contact-page-booking-embed {
+    min-height: 600px;
+  }
+  .woodworking-booking-embed {
+    min-height: 600px;
+  }
+  .woodworking-hero,
+  .woodworking-products,
+  .woodworking-booking {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-page-hero {
+    min-height: 28rem;
+    padding-bottom: 3rem !important;
+  }
+  .service-page-hero-content {
+    padding: 0 5%;
+  }
+  .service-page-hero-desc {
+    font-size: 1.5rem;
+  }
+  .service-page-content {
+    padding: 4rem 5% 5rem !important;
+  }
+  .our-work-hero {
+    padding: 6rem 5% 4rem !important;
+  }
+  .our-work-hero .heading {
+    font-size: 2.8rem;
+  }
+  .our-work-portfolio {
+    padding: 2rem 5% 4rem !important;
+  }
+  .our-work-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .our-work-category-title {
+    font-size: 2rem;
+  }
+}
 
 /* Loading Animation */
 @keyframes shimmer {

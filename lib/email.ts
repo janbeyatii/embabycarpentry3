@@ -219,6 +219,78 @@ export async function sendWoodworkingInquiryEmail(inquiryData: {
   })
 }
 
+export async function sendContactInquiryEmail(contactData: {
+  customerName: string
+  customerEmail: string
+  customerPhone?: string
+  inquiryType?: string
+  message?: string
+}): Promise<boolean> {
+  const adminEmail = process.env.ADMIN_EMAIL
+  if (!adminEmail) {
+    console.error('ADMIN_EMAIL not configured')
+    return false
+  }
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #f5bf23; color: #000; padding: 20px; text-align: center; }
+        .content { background: #f9f9f9; padding: 20px; }
+        .field { margin-bottom: 15px; }
+        .label { font-weight: bold; color: #000; }
+        .value { color: #666; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>New Contact Form Inquiry - ${contactData.inquiryType || 'General'}</h1>
+        </div>
+        <div class="content">
+          <div class="field">
+            <span class="label">Name:</span>
+            <span class="value">${contactData.customerName}</span>
+          </div>
+          <div class="field">
+            <span class="label">Email:</span>
+            <span class="value">${contactData.customerEmail}</span>
+          </div>
+          ${contactData.customerPhone ? `
+          <div class="field">
+            <span class="label">Phone:</span>
+            <span class="value">${contactData.customerPhone}</span>
+          </div>
+          ` : ''}
+          ${contactData.inquiryType ? `
+          <div class="field">
+            <span class="label">Inquiry Type:</span>
+            <span class="value">${contactData.inquiryType}</span>
+          </div>
+          ` : ''}
+          ${contactData.message ? `
+          <div class="field">
+            <span class="label">Message:</span>
+            <div class="value">${contactData.message}</div>
+          </div>
+          ` : ''}
+        </div>
+      </div>
+    </body>
+    </html>
+  `
+
+  return sendEmail({
+    to: adminEmail,
+    subject: `New Contact Inquiry - ${contactData.inquiryType || 'General'} from ${contactData.customerName}`,
+    html,
+  })
+}
+
 export async function sendConfirmationEmail(
   to: string,
   type: 'quote' | 'inquiry',

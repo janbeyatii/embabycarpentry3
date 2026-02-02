@@ -19,23 +19,22 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="footer-heading">Quick Links</h4>
             <ul className="footer-links">
-              <li><Link href="#home">Home</Link></li>
-              <li><Link href="#about">About</Link></li>
-              <li><Link href="#services">Services</Link></li>
-              <li><Link href="#projects">Projects</Link></li>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/about">About Us</Link></li>
+              <li><Link href="/services">Services</Link></li>
+              <li><Link href="/our-work">Our Projects</Link></li>
               <li><Link href="/woodworking">Woodworking</Link></li>
-              <li><Link href="#contact">Contact</Link></li>
-              <li><Link href="#blogs">Blogs</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
 
           <div className="footer-col">
             <h4 className="footer-heading">Services</h4>
             <ul className="footer-links">
-              <li><Link href="#services">Construction</Link></li>
-              <li><Link href="#services">Renovations</Link></li>
+              <li><Link href="/services">Construction</Link></li>
+              <li><Link href="/services">Renovations</Link></li>
               <li><Link href="/woodworking">Custom Woodworking</Link></li>
-              <li><Link href="#contact">Free Quotes</Link></li>
+              <li><Link href="/contact">Free Quote</Link></li>
             </ul>
           </div>
 
@@ -44,11 +43,11 @@ export default function Footer() {
             <ul className="footer-contact">
               <li>
                 <i className="fas fa-phone" aria-hidden />
-                <span>+123-456-7890</span>
+                <a href="tel:+16138163764">+1 (613) 816-3764</a>
               </li>
               <li>
                 <i className="fas fa-envelope" aria-hidden />
-                <a href="mailto:info@embabycarpentry.com">info@embabycarpentry.com</a>
+                <a href="mailto:embabycarpentry@gmail.com">embabycarpentry@gmail.com</a>
               </li>
               <li>
                 <i className="fas fa-map-marker-alt" aria-hidden />
@@ -65,10 +64,7 @@ export default function Footer() {
             © {currentYear} Embaby Carpentry. All rights reserved.
           </p>
           <div className="footer-social">
-            <a href="#" className="footer-social-link" aria-label="Facebook">
-              <i className="fab fa-facebook-f" />
-            </a>
-            <a href="#" className="footer-social-link" aria-label="Instagram">
+            <a href="https://www.instagram.com/embabycarpentry?igsh=dWo1eXVjYWduYzgz" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="Instagram">
               <i className="fab fa-instagram" />
             </a>
             <a href="#" className="footer-social-link" aria-label="LinkedIn">

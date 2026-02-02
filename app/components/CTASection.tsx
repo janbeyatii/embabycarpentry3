@@ -7,7 +7,7 @@ export default function CTASection() {
           Get in touch with us today for a free consultation and quote. Let's build something amazing together!
         </p>
         <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="#quote" className="btn" style={{ background: 'var(--black)', color: 'var(--white)' }}>
+          <a href="/contact" className="btn" style={{ background: 'var(--black)', color: 'var(--white)' }}>
             <i className="fas fa-calculator" style={{ marginRight: '1rem' }}></i>
             Get Free Quote
           </a>

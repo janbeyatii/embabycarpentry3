@@ -6,9 +6,7 @@ import Services from './components/Services'
 import Stats from './components/Stats'
 import Projects from './components/Projects'
 import Reviews from './components/Reviews'
-import QuoteRequest from './components/QuoteRequest'
 import FAQ from './components/FAQ'
-import Contact from './components/Contact'
 import Blogs from './components/Blogs'
 import CTASection from './components/CTASection'
 import Footer from './components/Footer'
@@ -28,9 +26,7 @@ export default function Page() {
         <Services />
         <Projects />
         <Reviews />
-        <QuoteRequest />
         <FAQ />
-        <Contact />
         <Blogs />
         <CTASection />
         <Footer />

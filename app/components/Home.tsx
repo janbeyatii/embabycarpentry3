@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 export default function Home() {
   return (
     <section className="home home-static" id="home">
@@ -23,9 +25,13 @@ export default function Home() {
           <a href="#services" className="btn hero-btn-primary">
             Our Services
           </a>
-          <a href="tel:+16138221200" className="hero-phone-box">
+          <Link href="/woodworking" className="btn hero-btn-woodworking">
+            <i className="fas fa-hammer" aria-hidden />
+            Custom Woodworking
+          </Link>
+          <a href="tel:+16138163764" className="hero-phone-box">
             <i className="fas fa-phone" aria-hidden />
-            <span>1-613-822-1200</span>
+            <span>+1 (613) 816-3764</span>
           </a>
         </div>
       </div>

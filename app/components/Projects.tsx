@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 declare global {
   interface Window {
@@ -139,7 +140,10 @@ export default function Projects() {
       <section className="projects" id="projects">
         <h1 className="heading"> our projects </h1>
         <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-secondary)' }}>
-          No projects available at the moment.
+          <p style={{ fontSize: '1.8rem', marginBottom: '2rem' }}>No projects available at the moment.</p>
+          <Link href="/our-work" className="btn" style={{ background: 'var(--gold)', color: 'var(--black)' }}>
+            View Our Projects
+          </Link>
         </div>
       </section>
     )
@@ -181,6 +185,11 @@ export default function Projects() {
             </a>
           )
         })}
+      </div>
+      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+<Link href="/our-work" className="btn" style={{ background: 'var(--gold)', color: 'var(--black)' }}>
+            View Our Projects
+          </Link>
       </div>
     </section>
   )
