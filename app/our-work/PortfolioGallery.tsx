@@ -107,6 +107,7 @@ export default function PortfolioGallery(props: Props) {
         {title}
       </h3>
       <div
+        className="portfolio-modal-scroll"
         style={{
           overflowY: 'auto',
           padding: '8rem 2rem 4rem',
@@ -114,17 +115,19 @@ export default function PortfolioGallery(props: Props) {
           flexDirection: 'column',
           gap: '2rem',
           maxWidth: '90rem',
+          width: '100%',
+          flex: 1,
+          minHeight: 0,
         }}
+        onClick={(e) => e.stopPropagation()}
       >
         {images.map((img) => (
           <div key={img.url} className="portfolio-modal-image-wrap">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={img.url}
               alt={img.name}
-              fill
-              sizes="90rem"
-              style={{ objectFit: 'contain' }}
-              unoptimized
+              className="portfolio-modal-img"
               onClick={(e) => e.stopPropagation()}
             />
           </div>

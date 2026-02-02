@@ -3214,10 +3214,17 @@ body:has(.woodworking-page) {
 }
 
 .portfolio-modal-image-wrap {
-  position: relative;
   width: 100%;
-  min-height: 40rem;
-  overflow: hidden;
+}
+
+.portfolio-modal-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  background: var(--black);
 }
 
 .portfolio-project-card:hover {
