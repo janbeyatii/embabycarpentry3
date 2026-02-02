@@ -24,7 +24,7 @@ export default function Page() {
         <Stats />
         <About />
         <Services />
-        <Projects />
+        <Projects previewCount={3} />
         <Reviews />
         <FAQ />
         <Blogs />

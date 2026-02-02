@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getPortfolioPreview } from '@/lib/portfolio-preview-cache'
 
 declare global {
   interface Window {
@@ -29,26 +30,35 @@ interface Project {
   category: string
 }
 
-export default function Projects() {
+interface ProjectsProps {
+  /** When set, fetches random projects from blob portfolio (different each load) */
+  previewCount?: number
+}
+
+export default function Projects({ previewCount }: ProjectsProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const galleryInstanceRef = useRef<{ closeGallery?: () => void } | null>(null)
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (previewCount != null && previewCount > 0) {
+      getPortfolioPreview(previewCount)
+        .then((data) => {
+          if (Array.isArray(data)) setProjects(data as Project[])
+          setLoading(false)
+        })
+        .catch(() => setLoading(false))
+      return
+    }
     fetch('/api/portfolio/carpentry')
       .then(res => res.json())
       .then(data => {
-        if (Array.isArray(data)) {
-          setProjects(data)
-        }
+        if (Array.isArray(data)) setProjects(data)
         setLoading(false)
       })
-      .catch(err => {
-        console.error('Error fetching projects:', err)
-        setLoading(false)
-      })
-  }, [])
+      .catch(() => setLoading(false))
+  }, [previewCount])
 
   useEffect(() => {
     if (!PORTFOLIO_LIGHTBOX_ENABLED || !containerRef.current || projects.length === 0 || typeof window === 'undefined') return
@@ -149,11 +159,13 @@ export default function Projects() {
     )
   }
 
+  const isCompact = previewCount != null && previewCount > 0
+
   return (
-    <section className="projects" id="projects">
+    <section className={`projects ${isCompact ? 'projects--compact' : ''}`} id="projects">
       <h1 className="heading"> our projects </h1>
 
-      <div className="box-container" ref={containerRef}>
+      <div className="projects-grid" ref={containerRef}>
         {projects.map((project) => {
           const images = Array.isArray(project.images)
             ? project.images.filter((u): u is string => typeof u === 'string' && u.startsWith('http'))
@@ -165,31 +177,27 @@ export default function Projects() {
             : escapeHtml(project.title)
 
           return (
-            <a
+            <Link
               key={project.id}
-              href={PORTFOLIO_LIGHTBOX_ENABLED ? firstImage : '#'}
-              className="box"
+              href="/our-work"
+              className="projects-card"
               data-sub-html={captionHtml}
-              onClick={(e) => !PORTFOLIO_LIGHTBOX_ENABLED && e.preventDefault()}
-              style={!PORTFOLIO_LIGHTBOX_ENABLED ? { cursor: 'default' } : undefined}
             >
-              <div className="image">
-                <Image src={firstImage} alt={project.title} width={500} height={400} unoptimized={firstImage.startsWith('http')} />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>{project.title}</h3>
+              <div className="projects-card-image">
+                <Image src={firstImage} alt={project.title} width={500} height={400} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                <div className="projects-card-overlay">
+                  <h3 className="projects-card-title">{project.title}</h3>
+                  <span className="projects-card-photos">{images.length} photo{images.length !== 1 ? 's' : ''}</span>
                 </div>
-                <i className="fas fa-plus"></i>
               </div>
-            </a>
+            </Link>
           )
         })}
       </div>
-      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-<Link href="/our-work" className="btn" style={{ background: 'var(--gold)', color: 'var(--black)' }}>
-            View Our Projects
-          </Link>
+      <div className="projects-cta">
+        <Link href="/our-work" className="projects-cta-btn">
+          View Our Projects
+        </Link>
       </div>
     </section>
   )

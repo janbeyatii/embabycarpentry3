@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
-const SECTION_IDS = ['home', 'about', 'services', 'projects', 'contact'] as const
-
 const SERVICES_DROPDOWN = [
   { label: 'All Services', href: '/services' },
   { label: 'Kitchens', href: '/services/kitchens' },
@@ -59,28 +57,6 @@ export default function Header() {
     else if (pathname === '/services' || pathname.startsWith('/services')) setActiveSection('services')
     else if (pathname === '/contact') setActiveSection('contact')
     else if (pathname === '/') setActiveSection('home')
-  }, [pathname])
-
-  useEffect(() => {
-    if (pathname !== '/') return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id')
-            if (id && SECTION_IDS.includes(id as typeof SECTION_IDS[number])) {
-              setActiveSection(id)
-            }
-          }
-        }
-      },
-      { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
-    )
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-    return () => observer.disconnect()
   }, [pathname])
 
   const closeNav = () => {

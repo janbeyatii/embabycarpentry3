@@ -1159,37 +1159,68 @@ section {
 
 .projects {
   background: var(--black);
+  padding: 5rem 5% 6rem;
 }
 
 .projects .heading {
   color: var(--white);
 }
 
-.projects .box-container {
-  display: -ms-grid;
+.projects-cta {
+  text-align: center;
+  margin-top: 3.5rem;
+}
+
+.projects-cta-btn {
+  display: inline-block;
+  padding: 1.2rem 2.4rem;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.projects-cta-btn:hover {
+  background: var(--gold-dark);
+  color: var(--black);
+  transform: translateY(-2px);
+}
+
+.projects .box-container,
+.projects .projects-grid {
   display: grid;
-  -ms-grid-columns: (minmax(30rem, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   gap: 2rem;
 }
 
-.projects .box-container .box {
+.projects .box-container .box,
+.projects .projects-grid .projects-card {
   cursor: pointer;
   display: block;
   text-decoration: none;
 }
 
-.projects .box-container .box:hover .image img {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+.projects .box-container .box .image img {
+  transition: transform 0.4s ease;
 }
 
-.projects .box-container .box .image {
+.projects .box-container .box:hover .image img,
+.projects .projects-grid .projects-card:hover .projects-card-image img {
+  transform: scale(1.06);
+}
+
+.projects .box-container .box .image,
+.projects .projects-grid .projects-card-image {
+  position: relative;
   height: 40rem;
   overflow: hidden;
 }
 
-.projects .box-container .box .image img {
+.projects .box-container .box .image img,
+.projects .projects-grid .projects-card-image img {
   height: 100%;
   width: 100%;
   -o-object-fit: cover;
@@ -1247,6 +1278,48 @@ section {
 .projects .box-container .box:hover .content i {
   background: var(--white);
   color: var(--yellow);
+}
+
+/* Projects card overlay style (no plus button) */
+.projects-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.85) 40%);
+  padding: 4rem 1.5rem 1.5rem;
+  color: var(--white);
+}
+
+.projects-card-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--white);
+  text-transform: capitalize;
+  letter-spacing: 0.02em;
+}
+
+.projects-card-photos {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 0.3rem;
+  display: block;
+}
+
+.projects .projects-grid .projects-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.projects .projects-grid .projects-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.4);
+}
+
+.projects .projects-grid .projects-card:hover .projects-card-title {
+  color: var(--gold);
 }
 
 /* Lightbox caption (title + full description when project is clicked) */
@@ -2774,6 +2847,23 @@ section {
 
 .projects .box-container .box:hover {
   transform: translateY(-5px);
+}
+
+.projects--compact .projects-grid {
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 2rem;
+}
+
+.projects--compact .projects-card-image {
+  height: 24rem;
+}
+
+.projects--compact .projects-card-title {
+  font-size: 1.4rem;
+}
+
+.projects--compact .projects-card-overlay {
+  padding: 3rem 1.2rem 1.2rem;
 }
 
 /* ========== Standalone Pages (About, Contact, Services, Our Work) ========== */
