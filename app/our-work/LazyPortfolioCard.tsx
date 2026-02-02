@@ -33,7 +33,11 @@ export default function LazyPortfolioCard(props: Props) {
   }, [priority, visible])
 
   return (
-    <div ref={rootRef} className="portfolio-card-slot" style={{ minHeight: 0 }}>
+    <div
+      ref={rootRef}
+      className={`portfolio-card-slot ${visible ? 'portfolio-card-animate-in' : ''}`}
+      style={{ minHeight: 0 }}
+    >
       {visible ? (
         <PortfolioGallery {...galleryProps} priority={priority} />
       ) : (
