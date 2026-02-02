@@ -3,7 +3,7 @@ import Footer from '../components/Footer'
 import ScrollToTop from '../components/ScrollToTop'
 import { getPortfolioData } from '@/lib/portfolio-data'
 import Link from 'next/link'
-import PortfolioGallery from './PortfolioGallery'
+import LazyPortfolioCard from './LazyPortfolioCard'
 
 export const metadata = {
   title: 'Our Projects - Embaby Carpentry',
@@ -42,26 +42,32 @@ export default function OurWorkPage() {
               <p>Run the upload script to add your project images.</p>
             </div>
           ) : (
-            categories.map((category) => (
-              <div key={category} className="our-work-category">
-                <h2 className="our-work-category-title">{category}</h2>
-                <div className="our-work-grid">
-                  {byCategory[category].map((proj, idx) => {
-                    const firstImg = proj.images[0]?.url
-                    const title = proj.project ? `${category} - ${proj.project}` : category
+            (() => {
+              let cardIndex = 0
+              const PRIORITY_COUNT = 6
+              return categories.map((category) => (
+                <div key={category} className="our-work-category">
+                  <h2 className="our-work-category-title">{category}</h2>
+                  <div className="our-work-grid">
+                    {byCategory[category].map((proj, idx) => {
+                      const firstImg = proj.images[0]?.url
+                      const title = proj.project ? `${category} - ${proj.project}` : category
+                      const isPriority = cardIndex++ < PRIORITY_COUNT
 
-                    return (
-                      <PortfolioGallery
-                        key={`${category}-${proj.project}-${idx}`}
-                        title={title}
-                        images={proj.images}
-                        thumbnailUrl={firstImg}
-                      />
-                    )
-                  })}
+                      return (
+                        <LazyPortfolioCard
+                          key={`${category}-${proj.project}-${idx}`}
+                          title={title}
+                          images={proj.images}
+                          thumbnailUrl={firstImg}
+                          priority={isPriority}
+                        />
+                      )
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))
+              ))
+            })()
           )}
         </section>
 

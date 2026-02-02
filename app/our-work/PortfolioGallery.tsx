@@ -9,10 +9,11 @@ type Props = {
   title: string
   images: PortfolioImage[]
   thumbnailUrl?: string
+  priority?: boolean
 }
 
 export default function PortfolioGallery(props: Props) {
-  const { title, images, thumbnailUrl } = props
+  const { title, images, thumbnailUrl, priority = false } = props
   const [open, setOpen] = useState(false)
 
   if (images.length === 0) return null
@@ -30,9 +31,10 @@ export default function PortfolioGallery(props: Props) {
           src={thumb}
           alt={title}
           fill
-          sizes="(max-width: 768px) 100vw, 32rem"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
           style={{ objectFit: 'cover' }}
-          unoptimized
+          priority={priority}
+          loading={priority ? undefined : 'lazy'}
         />
         <div
           style={{
@@ -128,6 +130,8 @@ export default function PortfolioGallery(props: Props) {
               src={img.url}
               alt={img.name}
               className="portfolio-modal-img"
+              loading="lazy"
+              decoding="async"
               onClick={(e) => e.stopPropagation()}
             />
           </div>

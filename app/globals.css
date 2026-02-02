@@ -3233,6 +3233,16 @@ body:has(.woodworking-page) {
   border-color: var(--gold) !important;
 }
 
+.portfolio-card-slot {
+  min-height: 0;
+}
+
+.portfolio-card-placeholder {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 /* ========== Contact Page Layout ========== */
 .contact-page-hero {
   padding: 8rem 10% 5rem !important;
