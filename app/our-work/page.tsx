@@ -70,7 +70,7 @@ export default function OurWorkPage() {
                   <div className="our-work-grid">
                     {byCategory[category].map((proj, idx) => {
                       const firstImg = proj.images[0]?.url
-                      const title = proj.project ? `${category} - ${proj.project}` : category
+                      const title = category
                       const isPriority = cardIndex++ < PRIORITY_COUNT
 
                       return (

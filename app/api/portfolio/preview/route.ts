@@ -23,7 +23,7 @@ export async function GET(request: Request) {
     const shuffled = shuffle(byProject)
     const projects = shuffled.slice(0, Math.min(count, shuffled.length)).map((p) => ({
       id: `${p.category}-${p.project}`.replace(/\s+/g, '-'),
-      title: p.project ? `${p.category} - ${p.project}` : p.category,
+      title: p.category,
       description: null,
       images: p.images.map((i) => i.url),
       category: p.category,
