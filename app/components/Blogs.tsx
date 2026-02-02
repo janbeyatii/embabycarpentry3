@@ -12,19 +12,19 @@ const BLOGS = [
     slug: 'kitchen-renovation-costs-ottawa-2026',
     title: 'Kitchen Renovation Costs in Ottawa: What to Expect in 2026',
     excerpt: 'Average price ranges, cost factors, and how to budget for your Ottawa kitchen remodel.',
-    img: '/images/blog-1.jpg',
+    img: '/images/blog-2.webp',
   },
   {
     slug: 'choose-right-contractor-ottawa',
     title: 'How to Choose the Right Contractor in Ottawa',
     excerpt: 'Licensing, insurance, red flags, and questions to ask before hiring.',
-    img: '/images/blog-2.jpg',
+    img: '/images/blog-3.jpg',
   },
   {
     slug: 'custom-carpentry-vs-prefab-ottawa',
     title: 'Custom Carpentry vs Prefab: Which Is Better for Ottawa Homes?',
     excerpt: 'Compare durability, fit, resale value, and long-term cost.',
-    img: '/images/blog-3.jpg',
+    img: '/images/blog-1.webp',
   },
 ]
 
