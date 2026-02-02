@@ -24,10 +24,6 @@ export default function About() {
               <i className="fas fa-check-circle" style={{ color: 'var(--yellow)', fontSize: '2rem' }}></i>
               <span>On-Time Project Completion</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <i className="fas fa-check-circle" style={{ color: 'var(--yellow)', fontSize: '2rem' }}></i>
-              <span>Comprehensive Warranty Coverage</span>
-            </div>
           </div>
           <a href="#services" className="btn" style={{ marginTop: '2rem' }}>Our Services</a>
         </div>

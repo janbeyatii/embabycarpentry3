@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 type PortfolioImage = { name: string; url: string }
@@ -15,10 +15,35 @@ type Props = {
 export default function PortfolioGallery(props: Props) {
   const { title, images, thumbnailUrl, priority = false } = props
   const [open, setOpen] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    if (open) {
+      setCurrentIndex(0)
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+      if (e.key === 'ArrowLeft') setCurrentIndex((i) => (i - 1 + images.length) % images.length)
+      if (e.key === 'ArrowRight') setCurrentIndex((i) => (i + 1) % images.length)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open, images.length])
 
   if (images.length === 0) return null
 
   const thumb = thumbnailUrl || images[0].url
+  const currentImg = images[currentIndex]
 
   const card = (
     <button
@@ -63,80 +88,63 @@ export default function PortfolioGallery(props: Props) {
       aria-modal="true"
       aria-label={'Gallery: ' + title}
       onClick={() => setOpen(false)}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(0,0,0,0.95)',
-        zIndex: 9999,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+      className="portfolio-lightbox"
     >
       <button
         type="button"
         onClick={() => setOpen(false)}
         aria-label="Close gallery"
-        style={{
-          position: 'absolute',
-          top: '2rem',
-          right: '2rem',
-          width: '4rem',
-          height: '4rem',
-          borderRadius: '50%',
-          border: '2px solid var(--gold)',
-          background: 'transparent',
-          color: 'var(--gold)',
-          fontSize: '2.4rem',
-          cursor: 'pointer',
-          lineHeight: 1,
-          zIndex: 1,
-        }}
+        className="portfolio-lightbox-close"
       >
         X
       </button>
-      <h3
-        style={{
-          position: 'absolute',
-          top: '2rem',
-          left: '2rem',
-          color: 'var(--white)',
-          fontSize: '1.8rem',
-          margin: 0,
-        }}
-      >
-        {title}
-      </h3>
+      <h3 className="portfolio-lightbox-title">{title}</h3>
+
+      {/* Fullscreen image container */}
       <div
-        className="portfolio-modal-scroll"
-        style={{
-          overflowY: 'auto',
-          padding: '8rem 2rem 4rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '2rem',
-          maxWidth: '90rem',
-          width: '100%',
-          flex: 1,
-          minHeight: 0,
-        }}
+        className="portfolio-lightbox-image-area"
         onClick={(e) => e.stopPropagation()}
       >
-        {images.map((img) => (
-          <div key={img.url} className="portfolio-modal-image-wrap">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={img.url}
-              alt={img.name}
-              className="portfolio-modal-img"
-              loading="lazy"
-              decoding="async"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-        ))}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={currentImg.url}
+          alt={currentImg.name}
+          className="portfolio-lightbox-img"
+          loading="eager"
+          decoding="async"
+        />
       </div>
+
+      {/* Navigation */}
+      {images.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation()
+              setCurrentIndex((i) => (i - 1 + images.length) % images.length)
+            }}
+            aria-label="Previous image"
+            className="portfolio-lightbox-prev"
+          >
+            <i className="fas fa-chevron-left" aria-hidden />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation()
+              setCurrentIndex((i) => (i + 1) % images.length)
+            }}
+            aria-label="Next image"
+            className="portfolio-lightbox-next"
+          >
+            <i className="fas fa-chevron-right" aria-hidden />
+          </button>
+          <span className="portfolio-lightbox-counter">
+            {currentIndex + 1} / {images.length}
+          </span>
+        </>
+      )}
     </div>
   ) : null
 

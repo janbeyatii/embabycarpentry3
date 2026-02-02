@@ -23,6 +23,7 @@ export default function Footer() {
               <li><Link href="/about">About Us</Link></li>
               <li><Link href="/services">Services</Link></li>
               <li><Link href="/our-work">Our Projects</Link></li>
+              <li><Link href="/blog">Blog</Link></li>
               <li><Link href="/woodworking">Woodworking</Link></li>
               <li><Link href="/contact">Contact</Link></li>
             </ul>

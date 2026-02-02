@@ -8,56 +8,142 @@ export const metadata = {
   description: 'Learn about Embaby Carpentry - quality construction and carpentry services in the Ottawa area since 2019.',
 }
 
+const VALUES = [
+  {
+    icon: 'fas fa-shield-alt',
+    title: 'Licensed & Insured',
+    desc: 'Fully licensed and insured for your peace of mind. We take responsibility seriously so you can focus on the result.',
+  },
+  {
+    icon: 'fas fa-tools',
+    title: 'Quality Materials & Workmanship',
+    desc: 'We source premium materials and apply skilled craftsmanship to every project. No shortcuts—just lasting results.',
+  },
+  {
+    icon: 'fas fa-calendar-check',
+    title: 'On-Time Completion',
+    desc: 'We respect your schedule. Clear timelines, reliable communication, and projects delivered when we promise.',
+  },
+]
+
+const SERVICE_AREAS = [
+  'Ottawa',
+  'Greely',
+  'Carleton Place',
+  'Mississippi Mills',
+  'Arnprior',
+  'Almonte',
+  'Dunrobin',
+  'Kemptville',
+]
+
 export default function AboutPage() {
   return (
     <>
       <Header />
       <div className="main-content about-page">
-        <section className="about-page-hero" style={{
-          padding: '8rem 10% 5rem',
-          background: 'var(--black)',
-          textAlign: 'center',
-        }}>
+        {/* Hero */}
+        <section className="about-page-hero">
+          <p className="about-page-hero__tagline">Serving Ottawa & the Region Since 2019</p>
           <h1 className="heading heading-center">About Us</h1>
-          <p style={{
-            fontSize: '1.8rem',
-            color: 'var(--text-secondary)',
-            maxWidth: '60rem',
-            margin: '0 auto',
-            lineHeight: 1.7,
-          }}>
-            Quality craftsmanship and customer satisfaction since 2019.
+          <p className="about-page-hero__lead">
+            Quality craftsmanship and customer satisfaction at the heart of everything we build.
           </p>
         </section>
 
-        <section className="about">
+        {/* Our Story */}
+        <section className="about-page-story">
+          <div className="about-page-story__inner">
+            <h2 className="about-page-section-title">Our Story</h2>
+            <p className="about-page-story__p">
+              Embaby Carpentry was founded with a simple belief: every project deserves attention to detail, honest communication, and work that lasts. What started as a small carpentry operation has grown into a trusted name across the Ottawa region—serving homeowners, architects, commercial builders, interior designers, general contractors, and real estate developers.
+            </p>
+            <p className="about-page-story__p">
+              We don&apos;t just build—we partner. From concept to completion, we listen to your goals, advise on options, and deliver results that exceed expectations. Whether it&apos;s a kitchen renovation, a custom deck, or a commercial build-out, we bring the same dedication and professionalism to every job.
+            </p>
+          </div>
+        </section>
+
+        {/* Video + Content */}
+        <section className="about about-page-main">
           <div className="row">
             <div className="video">
-              <video src="/images/about-vid.mp4" loop muted autoPlay playsInline></video>
+              <video src="/images/about-vid.mp4" loop muted autoPlay playsInline aria-label="Embaby Carpentry at work"></video>
             </div>
             <div className="content">
               <h3>We will provide you the best work which you dreamt for!</h3>
-              <p>With over a decade of experience in construction and carpentry, we bring expertise, quality craftsmanship, and attention to detail to every project. From custom homes to commercial buildings, we deliver results that exceed expectations.</p>
-              <div className="about-features" style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <i className="fas fa-check-circle" style={{ color: 'var(--yellow)', fontSize: '2rem' }}></i>
-                  <span>Licensed & Insured Professionals</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <i className="fas fa-check-circle" style={{ color: 'var(--yellow)', fontSize: '2rem' }}></i>
-                  <span>Quality Materials & Workmanship</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <i className="fas fa-check-circle" style={{ color: 'var(--yellow)', fontSize: '2rem' }}></i>
-                  <span>On-Time Project Completion</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <i className="fas fa-check-circle" style={{ color: 'var(--yellow)', fontSize: '2rem' }}></i>
-                  <span>Comprehensive Warranty Coverage</span>
-                </div>
-              </div>
-              <Link href="/services" className="btn" style={{ marginTop: '2rem' }}>Our Services</Link>
+              <p>
+                With over a decade of experience in construction and carpentry, we bring expertise, quality craftsmanship, and attention to detail to every project. From custom homes to commercial buildings, we deliver results that exceed expectations.
+              </p>
+              <p>
+                Our team combines traditional skills with modern techniques—ensuring your project is built to last and finished with care. We&apos;re proud to work with hundreds of satisfied clients across Ottawa and the surrounding communities.
+              </p>
+              <Link href="/services" className="btn">Our Services</Link>
             </div>
+          </div>
+        </section>
+
+        {/* Values */}
+        <section className="about-page-values">
+          <h2 className="about-page-section-title">What We Stand For</h2>
+          <div className="about-page-values__grid">
+            {VALUES.map((v, i) => (
+              <div key={i} className="about-page-value-card">
+                <div className="about-page-value-card__icon">
+                  <i className={v.icon} aria-hidden />
+                </div>
+                <h3 className="about-page-value-card__title">{v.title}</h3>
+                <p className="about-page-value-card__desc">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Service Area */}
+        <section className="about-page-areas">
+          <h2 className="about-page-section-title">Where We Work</h2>
+          <p className="about-page-areas__lead">
+            Proudly serving Ottawa and the surrounding region. Residential and commercial projects—wherever you are, we bring the same quality and reliability.
+          </p>
+          <div className="about-page-areas__list">
+            {SERVICE_AREAS.map((area, i) => (
+              <span key={i} className="about-page-areas__tag">{area}</span>
+            ))}
+          </div>
+          <p className="about-page-areas__foot">…and everywhere in between.</p>
+        </section>
+
+        {/* Stats */}
+        <section className="about-page-stats">
+          <div className="about-page-stats__grid">
+            <div className="about-page-stat">
+              <span className="about-page-stat__num">7+</span>
+              <span className="about-page-stat__label">Years Experience</span>
+            </div>
+            <div className="about-page-stat">
+              <span className="about-page-stat__num">350</span>
+              <span className="about-page-stat__label">Projects Completed</span>
+            </div>
+            <div className="about-page-stat">
+              <span className="about-page-stat__num">100+</span>
+              <span className="about-page-stat__label">Satisfied Clients</span>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="about-page-cta">
+          <h2 className="about-page-cta__title">Ready to Start Your Project?</h2>
+          <p className="about-page-cta__text">
+            Get a free consultation and quote. No obligation—just straight talk and quality work.
+          </p>
+          <div className="about-page-cta__buttons">
+            <Link href="/contact" className="btn">
+              <i className="fas fa-calendar-alt" aria-hidden /> Get a Free Quote
+            </Link>
+            <Link href="/our-work" className="btn btn-outline">
+              <i className="fas fa-images" aria-hidden /> View Our Projects
+            </Link>
           </div>
         </section>
 

@@ -3,19 +3,32 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import 'swiper/css'
 
-export default function Blogs() {
-  const blogs = [
-    { img: '/images/blog-1.jpg' },
-    { img: '/images/blog-2.jpg' },
-    { img: '/images/blog-3.jpg' },
-    { img: '/images/blog-4.jpg' },
-    { img: '/images/blog-5.jpg' },
-    { img: '/images/blog-6.jpg' },
-  ]
+const BLOGS = [
+  {
+    slug: 'kitchen-renovation-costs-ottawa-2026',
+    title: 'Kitchen Renovation Costs in Ottawa: What to Expect in 2026',
+    excerpt: 'Average price ranges, cost factors, and how to budget for your Ottawa kitchen remodel.',
+    img: '/images/blog-1.jpg',
+  },
+  {
+    slug: 'choose-right-contractor-ottawa',
+    title: 'How to Choose the Right Contractor in Ottawa',
+    excerpt: 'Licensing, insurance, red flags, and questions to ask before hiring.',
+    img: '/images/blog-2.jpg',
+  },
+  {
+    slug: 'custom-carpentry-vs-prefab-ottawa',
+    title: 'Custom Carpentry vs Prefab: Which Is Better for Ottawa Homes?',
+    excerpt: 'Compare durability, fit, resale value, and long-term cost.',
+    img: '/images/blog-3.jpg',
+  },
+]
 
+export default function Blogs() {
   return (
     <section className="blogs" id="blogs">
       <h1 className="heading"> our blogs </h1>
@@ -38,15 +51,15 @@ export default function Blogs() {
         }}
         className="blogs-slider"
       >
-        {blogs.map((blog, index) => (
-          <SwiperSlide key={index} className="slide">
-            <div className="image">
-              <Image src={blog.img} alt="blog" width={400} height={250} />
-            </div>
+        {BLOGS.map((blog) => (
+          <SwiperSlide key={blog.slug} className="slide">
+            <Link href={`/blog/${blog.slug}`} className="image">
+              <Image src={blog.img} alt={blog.title} width={400} height={250} />
+            </Link>
             <div className="content">
-              <h3>blog title goes here</h3>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda, nobis!</p>
-              <a href="#" className="btn">read more</a>
+              <h3>{blog.title}</h3>
+              <p>{blog.excerpt}</p>
+              <Link href={`/blog/${blog.slug}`} className="btn">read more</Link>
             </div>
           </SwiperSlide>
         ))}

@@ -1,6 +1,7 @@
 import Header from './components/Header'
 import OffersBanner from './components/OffersBanner'
 import Home from './components/Home'
+import { getSlideshowImages } from '@/lib/portfolio-data'
 import About from './components/About'
 import Services from './components/Services'
 import Stats from './components/Stats'
@@ -19,7 +20,7 @@ export default function Page() {
       <div className="main-content">
         <div className="landing-view">
           <OffersBanner />
-          <Home />
+          <Home slideshowImages={getSlideshowImages(25)} />
         </div>
         <Stats />
         <About />

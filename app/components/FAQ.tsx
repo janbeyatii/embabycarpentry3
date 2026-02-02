@@ -31,10 +31,6 @@ export default function FAQ() {
       answer: 'We accept various payment methods including cash, checks, and major credit cards. Payment schedules are typically structured with an initial deposit, progress payments, and final payment upon completion.'
     },
     {
-      question: 'Do you offer warranties on your work?',
-      answer: 'Yes, we stand behind our work with comprehensive warranties. All projects come with a minimum 1-year warranty on workmanship, and we offer extended warranties for specific systems and materials.'
-    },
-    {
       question: 'How do you handle permits and inspections?',
       answer: 'We handle all necessary permits and coordinate with local building departments for inspections. Our team is familiar with local codes and regulations to ensure your project is fully compliant.'
     }

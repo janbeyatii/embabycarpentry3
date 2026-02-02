@@ -24,6 +24,7 @@ export default function Header() {
     if (pathname === '/about') return 'about'
     if (pathname === '/services' || pathname.startsWith('/services')) return 'services'
     if (pathname === '/contact') return 'contact'
+    if (pathname === '/blog' || pathname.startsWith('/blog')) return 'blog'
     return 'home'
   })
 
@@ -56,6 +57,7 @@ export default function Header() {
     else if (pathname === '/about') setActiveSection('about')
     else if (pathname === '/services' || pathname.startsWith('/services')) setActiveSection('services')
     else if (pathname === '/contact') setActiveSection('contact')
+    else if (pathname === '/blog' || pathname.startsWith('/blog')) setActiveSection('blog')
     else if (pathname === '/') setActiveSection('home')
   }, [pathname])
 
@@ -110,6 +112,7 @@ export default function Header() {
             </div>
           </div>
           <a href="/our-work" onClick={closeNav} className={activeSection === 'projects' ? 'active' : ''}>Our Projects</a>
+          <a href="/blog" onClick={closeNav} className={activeSection === 'blog' ? 'active' : ''}>Blog</a>
           <a href="/contact" onClick={closeNav} className={activeSection === 'contact' ? 'active' : ''}>Contact</a>
         </nav>
 

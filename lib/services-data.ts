@@ -98,7 +98,7 @@ export const SERVICES: ServiceData[] = [
     slug: 'fences',
     title: 'Fences',
     shortDesc: 'Quality fence installation. Privacy, boundary, and decorative fencing for your property.',
-    img: '/images/service-4.webp',
+    img: '/images/service-6.webp',
     content: {
       intro: 'Define your property and add privacy with a quality fence from Embaby Carpentry. We install privacy fences, boundary fencing, gates, and decorative options to suit your needs and style.',
       highlights: [

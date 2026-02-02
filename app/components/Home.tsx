@@ -1,16 +1,59 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
-export default function Home() {
+type Props = {
+  slideshowImages?: string[]
+}
+
+export default function Home({ slideshowImages = [] }: Props) {
+  const [index, setIndex] = useState(0)
+  const [visibleSlot, setVisibleSlot] = useState(0)
+
+  useEffect(() => {
+    if (slideshowImages.length < 2) return
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % slideshowImages.length)
+      setVisibleSlot((v) => 1 - v)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [slideshowImages.length])
+
+  const fallbackSrc = '/images/service-1.webp'
+  const urls = slideshowImages.length > 0 ? slideshowImages : [fallbackSrc]
+  const n = urls.length
+  const slot0Src = visibleSlot === 0 ? urls[index % n] : urls[(index + 1) % n]
+  const slot1Src = visibleSlot === 1 ? urls[index % n] : urls[(index + 1) % n]
+
   return (
     <section className="home home-static" id="home">
-      <div className="hero-bg">
-        <img
-          src="/images/home-slide-1.jpg"
-          alt=""
-          className="hero-bg-img"
-        />
+      <div className="hero-bg hero-bg-slideshow">
+        {urls.length > 0 && (
+          <>
+            <div className={`hero-bg-slide ${visibleSlot === 0 ? 'hero-bg-slide--active' : ''}`}>
+              <Image
+                src={slot0Src}
+                alt=""
+                fill
+                className="hero-bg-img"
+                sizes="100vw"
+              />
+            </div>
+            {urls.length > 1 && (
+              <div className={`hero-bg-slide ${visibleSlot === 1 ? 'hero-bg-slide--active' : ''}`}>
+                <Image
+                  src={slot1Src}
+                  alt=""
+                  fill
+                  className="hero-bg-img"
+                  sizes="100vw"
+                />
+              </div>
+            )}
+          </>
+        )}
         <div className="hero-overlay" aria-hidden />
       </div>
       <div className="hero-content">

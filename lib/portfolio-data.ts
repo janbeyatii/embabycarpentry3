@@ -19,6 +19,23 @@ export interface PortfolioData {
 
 let cached: PortfolioData | null = null
 
+function shuffle<T>(arr: T[]): T[] {
+  const out = [...arr]
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[out[i], out[j]] = [out[j], out[i]]
+  }
+  return out
+}
+
+export function getSlideshowImages(count = 25): string[] {
+  const data = getPortfolioData()
+  const urls = data?.flat?.map((f) => f.url) ?? []
+  if (urls.length === 0) return []
+  const shuffled = shuffle(urls)
+  return shuffled.slice(0, Math.min(count, shuffled.length))
+}
+
 export function getPortfolioData(): PortfolioData | null {
   if (cached) return cached
   try {

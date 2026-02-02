@@ -11,9 +11,9 @@ export default function Stats() {
 
   useEffect(() => {
     const targetCounts = {
-      projects: 1500,
-      clients: 790,
-      experience: 10
+      projects: 350,
+      clients: 100,
+      experience: 7
     }
 
     const duration = 2000 // 2 seconds
@@ -41,9 +41,9 @@ export default function Stats() {
   }, [])
 
   const stats = [
-    { number: counters.projects, label: 'Projects Completed', icon: 'fas fa-building' },
-    { number: counters.clients, label: 'Satisfied Clients', icon: 'fas fa-smile' },
-    { number: counters.experience, label: 'Years Experience', icon: 'fas fa-calendar-alt' }
+    { number: counters.projects, label: 'Projects Completed', icon: 'fas fa-building', suffix: '' },
+    { number: counters.clients, label: 'Satisfied Clients', icon: 'fas fa-smile', suffix: '+' },
+    { number: counters.experience, label: 'Years Experience', icon: 'fas fa-calendar-alt', suffix: '+' }
   ]
 
   return (
@@ -52,7 +52,7 @@ export default function Stats() {
         {stats.map((stat, index) => (
           <div key={index} className="stat-item">
             <i className={stat.icon} style={{ fontSize: '3rem', color: 'var(--white)', marginBottom: '1rem' }}></i>
-            <span className="number">{stat.number}+</span>
+            <span className="number">{stat.number}{stat.suffix}</span>
             <div className="label">{stat.label}</div>
           </div>
         ))}
