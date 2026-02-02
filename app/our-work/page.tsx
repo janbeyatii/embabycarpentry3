@@ -5,8 +5,6 @@ import { getPortfolioData } from '@/lib/portfolio-data'
 import { getCategorySummary } from '@/lib/category-summaries'
 import Link from 'next/link'
 import LazyPortfolioCard from './LazyPortfolioCard'
-import BeforeAfterSlider from './BeforeAfterSlider'
-import ProjectsCTA from './ProjectsCTA'
 import ProjectsTestimonials from './ProjectsTestimonials'
 
 export const metadata = {
@@ -17,11 +15,6 @@ export const metadata = {
 export default function OurWorkPage() {
   const data = getPortfolioData()
   const projects = data?.byProject ?? []
-
-  // Projects with 2+ images for before/after (take first 3)
-  const beforeAfterProjects = projects
-    .filter((p) => p.images.length >= 2)
-    .slice(0, 3)
 
   // Group by category
   const byCategory = projects.reduce<Record<string, typeof projects>>((acc, p) => {
@@ -40,57 +33,23 @@ export default function OurWorkPage() {
         <section className="our-work-hero our-work-hero--premium">
           <div className="our-work-hero__bg" aria-hidden />
           <div className="our-work-hero__content">
+            <p className="our-work-hero__tagline">Proof of What We Build</p>
             <h1 className="our-work-hero__title">Our Projects</h1>
             <p className="our-work-hero__lead">
-              These are the projects we&apos;re proud to showcase—each one reflects our commitment to quality craftsmanship and attention to detail.
+              Quality craftsmanship you can trust. Every project reflects our commitment to precision, durability, and results that last.
             </p>
-            <p className="our-work-hero__desc">
-              Explore our portfolio of construction, renovation, and custom carpentry work across the Ottawa region. Residential and commercial—we deliver results that exceed expectations.
-            </p>
-            <div className="our-work-hero-badges">
-              <div className="our-work-hero-badge">
-                <i className="fas fa-home our-work-hero-badge-icon" aria-hidden />
-                <span className="our-work-hero-badge-text">Residential</span>
-                <span className="our-work-hero-badge-desc">Homes, renovations, custom builds</span>
-              </div>
-              <div className="our-work-hero-badge">
-                <i className="fas fa-building our-work-hero-badge-icon" aria-hidden />
-                <span className="our-work-hero-badge-text">Commercial</span>
-                <span className="our-work-hero-badge-desc">Offices, retail, institutional</span>
-              </div>
+            <div className="our-work-hero__copy">
+              <p>We don&apos;t just deliver work—we deliver outcomes. From kitchen renovations to custom outdoor structures, our portfolio showcases the level of care and expertise you can expect.</p>
+              <p><strong>Residential and commercial.</strong> Ottawa and the surrounding region. Built to exceed expectations.</p>
             </div>
-            <Link href="/contact" className="our-work-hero__cta">
-              Get a Free Quote
-            </Link>
+            <div className="our-work-hero__cta-wrap">
+              <Link href="/contact" className="our-work-hero__cta">
+                Get a Free Quote
+              </Link>
+              <span className="our-work-hero__cta-reassurance">No obligation · Response within 24 hours</span>
+            </div>
           </div>
         </section>
-
-        <ProjectsCTA />
-
-        {beforeAfterProjects.length > 0 && (
-          <section className="our-work-before-after">
-            <h2 className="our-work-section-title">Before & After</h2>
-            <p className="our-work-section-subtitle">
-              See the transformation. Drag the slider to compare.
-            </p>
-            <div className="our-work-before-after-grid">
-              {beforeAfterProjects.map((proj, i) => (
-                <div key={i} className="our-work-before-after-item">
-                  <BeforeAfterSlider
-                    beforeUrl={proj.images[0].url}
-                    afterUrl={proj.images[proj.images.length - 1].url}
-                    title={`${proj.category} - ${proj.project}`}
-                  />
-                  <p className="our-work-before-after-caption">
-                    {proj.category} — {proj.project}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        <ProjectsCTA variant="secondary" />
 
         <section className="our-work-portfolio">
           {categories.length === 0 ? (
