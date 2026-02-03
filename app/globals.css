@@ -75,6 +75,43 @@ html::-webkit-scrollbar-thumb {
   padding-top: var(--header-bar-height-px);
 }
 
+/* Home page scroll animations – GPU-friendly, main page only */
+.home-page-animated .animate-in {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.home-page-animated .animate-in[data-direction="up"] {
+  transform: translateY(40px);
+}
+.home-page-animated .animate-in[data-direction="down"] {
+  transform: translateY(-40px);
+}
+.home-page-animated .animate-in[data-direction="left"] {
+  transform: translateX(-40px);
+}
+.home-page-animated .animate-in[data-direction="right"] {
+  transform: translateX(40px);
+}
+.home-page-animated .animate-in.animate-in--visible {
+  opacity: 1;
+  transform: translate(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-page-animated .animate-in {
+    transform: none;
+    transition-duration: 0.35s;
+  }
+  .home-page-animated .animate-in[data-direction="up"],
+  .home-page-animated .animate-in[data-direction="down"],
+  .home-page-animated .animate-in[data-direction="left"],
+  .home-page-animated .animate-in[data-direction="right"] {
+    transform: none;
+  }
+}
+
 section {
   padding: 5rem 10%;
 }

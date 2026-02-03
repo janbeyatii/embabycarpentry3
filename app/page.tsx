@@ -26,6 +26,7 @@ import Blogs from './components/Blogs'
 import CTASection from './components/CTASection'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import AnimateIn from './components/AnimateIn'
 
 export default function Page() {
   const faqSchema = buildFAQSchema(FAQ_ITEMS)
@@ -37,19 +38,35 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <Header />
-      <div className="main-content">
+      <div className="main-content home-page-animated">
         <div className="landing-view">
           <OffersBanner />
           <Home slideshowImages={getSlideshowImages(25)} />
         </div>
-        <Stats />
-        <About />
-        <Services />
-        <Projects previewCount={3} />
-        <Reviews />
-        <FAQ />
-        <Blogs />
-        <CTASection />
+        <AnimateIn direction="up">
+          <Stats />
+        </AnimateIn>
+        <AnimateIn direction="left">
+          <About />
+        </AnimateIn>
+        <AnimateIn direction="right">
+          <Services />
+        </AnimateIn>
+        <AnimateIn direction="up" delay={0.1}>
+          <Projects previewCount={3} />
+        </AnimateIn>
+        <AnimateIn direction="down">
+          <Reviews />
+        </AnimateIn>
+        <AnimateIn direction="left" delay={0.08}>
+          <FAQ />
+        </AnimateIn>
+        <AnimateIn direction="right" delay={0.08}>
+          <Blogs />
+        </AnimateIn>
+        <AnimateIn direction="up">
+          <CTASection />
+        </AnimateIn>
         <Footer />
         <ScrollToTop />
       </div>
