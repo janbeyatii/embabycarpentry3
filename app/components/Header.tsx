@@ -88,7 +88,7 @@ export default function Header() {
           <span className="menu-btn-bar" />
         </button>
 
-        <nav className={`navbar ${navbarActive ? 'active' : ''}`} aria-hidden={!navbarActive}>
+        <nav className="navbar navbar-desktop" aria-hidden={navbarActive}>
           <a href="/" onClick={closeNav} className={activeSection === 'home' ? 'active' : ''}>Home</a>
           <a href="/about" onClick={closeNav} className={activeSection === 'about' ? 'active' : ''}>About Us</a>
           <div
@@ -125,6 +125,72 @@ export default function Header() {
           </a>
         </div>
       </header>
+
+      <div className={`mobile-menu-overlay ${navbarActive ? 'active' : ''}`} onClick={closeNav} aria-hidden={!navbarActive} />
+
+      <div className={`mobile-menu-pane ${navbarActive ? 'active' : ''}`} aria-hidden={!navbarActive}>
+          <button
+            type="button"
+            className="mobile-menu-close"
+            onClick={closeNav}
+            aria-label="Close menu"
+          >
+            <i className="fas fa-times" aria-hidden />
+          </button>
+
+          <nav className="navbar">
+            <a href="/" onClick={closeNav} className={`mobile-nav-link ${activeSection === 'home' ? 'active' : ''}`}>
+              <span>HOME</span>
+              <span className="mobile-nav-dot" />
+            </a>
+            <a href="/about" onClick={closeNav} className={`mobile-nav-link ${activeSection === 'about' ? 'active' : ''}`}>
+              <span>ABOUT US</span>
+              <span className="mobile-nav-dot" />
+            </a>
+            <div className={`nav-dropdown mobile-nav-dropdown ${openDropdown ? 'open' : ''}`}>
+              <button
+                type="button"
+                className={`mobile-nav-link nav-dropdown-trigger ${activeSection === 'services' ? 'active' : ''}`}
+                onClick={() => setOpenDropdown(!openDropdown)}
+                aria-expanded={openDropdown}
+                aria-haspopup="true"
+              >
+                <span>SERVICES</span>
+                <span className="mobile-nav-dot" />
+              </button>
+              <div className="nav-dropdown-content">
+                {SERVICES_DROPDOWN.map((item) => (
+                  <a key={item.href} href={item.href} onClick={closeNav}>{item.label}</a>
+                ))}
+              </div>
+            </div>
+            <a href="/our-work" onClick={closeNav} className={`mobile-nav-link ${activeSection === 'projects' ? 'active' : ''}`}>
+              <span>OUR PROJECTS</span>
+              <span className="mobile-nav-dot" />
+            </a>
+            <a href="/blog" onClick={closeNav} className={`mobile-nav-link ${activeSection === 'blog' ? 'active' : ''}`}>
+              <span>BLOG</span>
+              <span className="mobile-nav-dot" />
+            </a>
+            <a href="/contact" onClick={closeNav} className={`mobile-nav-link ${activeSection === 'contact' ? 'active' : ''}`}>
+              <span>CONTACT</span>
+              <span className="mobile-nav-dot" />
+            </a>
+          </nav>
+
+          <a href="/contact" className="mobile-menu-cta" onClick={closeNav}>
+            GET A QUOTE
+          </a>
+
+          <div className="mobile-menu-support">
+            <span className="mobile-menu-support-title">DIRECT SUPPORT</span>
+            <a href="tel:+16138163764" className="mobile-menu-support-phone">
+              <i className="fas fa-phone" aria-hidden />
+              (613) 816-3764
+            </a>
+            <span className="mobile-menu-support-hours">Available 8am – 6pm Mon–Sat (Closed Sunday)</span>
+          </div>
+        </div>
     </>
   )
 }
