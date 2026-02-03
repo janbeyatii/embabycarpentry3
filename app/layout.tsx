@@ -58,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en-CA">
       <head>
+        <meta name="theme-color" content="#000000" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS_SCHEMA) }}
