@@ -61,9 +61,6 @@ export default function Home({ slideshowImages = [] }: Props) {
         <h1 className="hero-headline">
           We offer Construction Services for Residential or Commercial use.
         </h1>
-        <p className="hero-body">
-          For over 7 years, the locally owned and operated Embaby Carpentry has worked with hundresds of residential homeowners, architects, commercial builders, interior designers, general contractors, carpenters, real estate developers and realtors.
-        </p>
         <div className="hero-ctas">
           <a href="#services" className="btn hero-btn-primary">
             Our Services
