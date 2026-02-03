@@ -2,6 +2,8 @@
  * SEO constants and helpers for Ottawa-focused local search.
  * Use SITE_URL in production; fallback for dev.
  */
+import { SERVICES } from '@/lib/services-data'
+
 export const SITE_NAME = 'Embaby Carpentry'
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.embabycarpentry.com'
 export const DEFAULT_LOCALE = 'en-CA'
@@ -50,6 +52,20 @@ export const LOCAL_BUSINESS_SCHEMA = {
   image: `${SITE_URL}/images/logo.png`,
   priceRange: '$$',
   foundingDate: '2019',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Construction and Carpentry Services',
+    itemListElement: SERVICES.map((s, i) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: s.title,
+        url: `${SITE_URL}/services/${s.slug}`,
+      },
+    })),
+  },
+  // When you have real review data, add aggregateRating. Example:
+  // aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '50', bestRating: '5' },
 }
 
 /** Build Service schema for a single service page */
@@ -89,6 +105,54 @@ export function buildFAQSchema(faqs: { question: string; answer: string }[]) {
         '@type': 'Answer',
         text: faq.answer,
       },
+    })),
+  }
+}
+
+/** Build Article/BlogPosting schema for blog posts */
+export function buildArticleSchema(post: {
+  title: string
+  excerpt: string
+  image: string
+  date: string
+  modifiedDate?: string
+  slug: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    image: `${SITE_URL}${post.image}`,
+    datePublished: post.date,
+    dateModified: post.modifiedDate || post.date,
+    url: `${SITE_URL}/blog/${post.slug}`,
+    author: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/images/logo.png`,
+      },
+    },
+  }
+}
+
+/** Build BreadcrumbList schema */
+export function buildBreadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
     })),
   }
 }

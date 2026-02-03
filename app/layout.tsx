@@ -38,6 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${SITE_NAME} | Ottawa Contractor – Renovations & Custom Carpentry`,
     description: 'Ottawa contractor for construction, renovations, and custom carpentry. Licensed & insured. Free quotes.',
+    images: [`${SITE_URL}/images/logo.png`],
   },
   robots: {
     index: true,

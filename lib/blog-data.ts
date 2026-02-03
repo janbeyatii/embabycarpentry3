@@ -4,6 +4,7 @@ export interface BlogPost {
   excerpt: string
   image: string
   date: string
+  modifiedDate?: string // ISO date; when added, used for modifiedTime in metadata
   readTime: string
 }
 

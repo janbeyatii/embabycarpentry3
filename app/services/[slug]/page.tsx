@@ -5,7 +5,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import ScrollToTop from '../../components/ScrollToTop'
 import { getServiceBySlug, getAllServiceSlugs, SERVICES } from '@/lib/services-data'
-import { SITE_URL, buildServiceSchema } from '@/lib/seo'
+import { SITE_URL, buildServiceSchema, buildBreadcrumbSchema } from '@/lib/seo'
 
 export async function generateStaticParams() {
   return getAllServiceSlugs().map((slug) => ({ slug }))
@@ -15,16 +15,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const service = getServiceBySlug(slug)
   if (!service) return { title: 'Service Not Found' }
+  const serviceUrl = `${SITE_URL}/services/${slug}`
+  const ogImage = { url: `${SITE_URL}${service.img}`, width: 1200, height: 630, alt: `${service.title} Ottawa - Embaby Carpentry` }
   return {
     title: service.metaTitle,
     description: service.metaDescription,
     openGraph: {
       title: service.metaTitle,
       description: service.metaDescription,
-      url: `${SITE_URL}/services/${slug}`,
-      images: [{ url: `${SITE_URL}${service.img}`, width: 1200, height: 630, alt: `${service.title} Ottawa - Embaby Carpentry` }],
+      url: serviceUrl,
+      images: [ogImage],
     },
-    alternates: { canonical: `${SITE_URL}/services/${slug}` },
+    twitter: {
+      card: 'summary_large_image',
+      title: service.metaTitle,
+      description: service.metaDescription,
+      images: [`${SITE_URL}${service.img}`],
+    },
+    alternates: { canonical: serviceUrl },
   }
 }
 
@@ -35,18 +43,28 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const { content } = service
   const relatedServices = SERVICES.filter((s) => s.slug !== slug).slice(0, 3)
+  const serviceUrl = `${SITE_URL}/services/${slug}`
   const serviceSchema = buildServiceSchema({
     name: service.title,
     description: service.metaDescription,
-    url: `${SITE_URL}/services/${slug}`,
+    url: serviceUrl,
     image: service.img,
   })
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', url: SITE_URL },
+    { name: 'Services', url: `${SITE_URL}/services` },
+    { name: service.title, url: serviceUrl },
+  ])
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Header />
       <div className="main-content services-page">

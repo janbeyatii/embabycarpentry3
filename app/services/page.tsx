@@ -4,8 +4,9 @@ import ScrollToTop from '../components/ScrollToTop'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SERVICES } from '@/lib/services-data'
+import { FAQ_ITEMS } from '@/lib/faq-data'
 
-import { SITE_URL } from '@/lib/seo'
+import { SITE_URL, buildFAQSchema } from '@/lib/seo'
 
 export const metadata = {
   title: 'Construction & Renovation Services Ottawa | Kitchen, Bath, Decks, Carpentry',
@@ -16,13 +17,17 @@ export const metadata = {
     description:
       'Ottawa contractor services: kitchen renovations, bathroom remodels, decks, fences, and custom carpentry. Licensed & insured. Free quote.',
     url: `${SITE_URL}/services`,
+    images: [{ url: `${SITE_URL}/images/logo.png`, width: 1200, height: 630, alt: 'Embaby Carpentry - Ottawa construction and carpentry services' }],
   },
   alternates: { canonical: `${SITE_URL}/services` },
 }
 
 export default function ServicesPage() {
+  const faqSchema = buildFAQSchema(FAQ_ITEMS)
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Header />
       <div className="main-content services-page">
         <section style={{

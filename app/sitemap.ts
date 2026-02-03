@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import { SITE_URL } from '@/lib/seo'
 import { getAllServiceSlugs } from '@/lib/services-data'
-import { getAllBlogSlugs } from '@/lib/blog-data'
+import { BLOG_POSTS } from '@/lib/blog-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE_URL
@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/our-work`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${base}/woodworking`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${base}/woodworking/inquire`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ]
 
@@ -23,10 +24,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
-  const blogSlugs = getAllBlogSlugs()
-  const blogUrls: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-    url: `${base}/blog/${slug}`,
-    lastModified: new Date(),
+  const blogUrls: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+    url: `${base}/blog/${post.slug}`,
+    lastModified: new Date(post.modifiedDate || post.date),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
