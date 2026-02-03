@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 
 type PortfolioImage = { name: string; url: string }
@@ -16,6 +17,11 @@ export default function PortfolioGallery(props: Props) {
   const { title, images, thumbnailUrl, priority = false } = props
   const [open, setOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   useEffect(() => {
     if (open) {
@@ -151,7 +157,7 @@ export default function PortfolioGallery(props: Props) {
   return (
     <div>
       {card}
-      {modal}
+      {open && isClient ? createPortal(modal, document.body) : null}
     </div>
   )
 }
