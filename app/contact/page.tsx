@@ -4,9 +4,18 @@ import ScrollToTop from '../components/ScrollToTop'
 
 const SQUARE_BOOKING_URL = process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL || ''
 
+import { SITE_URL } from '@/lib/seo'
+
 export const metadata = {
-  title: 'Book a Consultation - Embaby Carpentry',
-  description: 'Book a free consultation for construction and carpentry services in the Ottawa area.',
+  title: 'Book a Free Quote | Ottawa Contractor | Embaby Carpentry',
+  description:
+    'Book a free consultation for kitchen renovations, bathroom remodels, decks, carpentry, and construction in Ottawa, Ontario. Response within 24 hours. No obligation.',
+  openGraph: {
+    title: 'Book a Free Quote | Ottawa Contractor | Embaby Carpentry',
+    description: 'Free consultation for Ottawa renovations and carpentry. Response within 24 hours.',
+    url: `${SITE_URL}/contact`,
+  },
+  alternates: { canonical: `${SITE_URL}/contact` },
 }
 
 export default function ContactPage() {

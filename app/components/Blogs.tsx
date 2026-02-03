@@ -54,7 +54,7 @@ export default function Blogs() {
         {BLOGS.map((blog) => (
           <SwiperSlide key={blog.slug} className="slide">
             <Link href={`/blog/${blog.slug}`} className="image">
-              <Image src={blog.img} alt={blog.title} width={400} height={250} />
+              <Image src={blog.img} alt={`${blog.title} - Embaby Carpentry Ottawa`} width={400} height={250} />
             </Link>
             <div className="content">
               <h3>{blog.title}</h3>

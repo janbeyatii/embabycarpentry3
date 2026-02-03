@@ -63,7 +63,7 @@ function KitchenCostsContent() {
         Set aside 10–15% of your budget for contingencies. Get at least two or three quotes from licensed <strong>kitchen renovation</strong> contractors in Ottawa, and ensure estimates include materials, labour, permits, and disposal. A detailed contract and payment schedule protect both you and the contractor.
       </p>
       <p>
-        Ready to plan your kitchen renovation? <Link href="/contact">Get a free quote</Link> from Embaby Carpentry and see what&apos;s possible within your budget.
+        Ready to plan your kitchen renovation? <Link href="/services/kitchens">Explore our kitchen renovation services in Ottawa</Link>, or <Link href="/contact">get a free quote</Link> from Embaby Carpentry and see what&apos;s possible within your budget.
       </p>
     </>
   )
@@ -103,7 +103,7 @@ function ContractorContent() {
         Ottawa homes have their own quirks—older neighbourhoods, varying bylaws, and specific climate challenges. A contractor familiar with local permits, inspectors, and building practices can streamline your project and avoid costly mistakes. Local experience also means they&apos;re invested in their reputation in the community.
       </p>
       <p>
-        Looking for a trusted <strong>renovation company Ottawa</strong>? <Link href="/contact">Contact Embaby Carpentry</Link> for a free consultation and see why local homeowners choose us for their home renovations.
+        Looking for a trusted <strong>renovation company Ottawa</strong>? <Link href="/services">View our renovation services</Link>—from <Link href="/services/kitchens">kitchen renovations</Link> to <Link href="/services/bath">bathroom remodels</Link>—or <Link href="/contact">contact Embaby Carpentry</Link> for a free consultation and see why local homeowners choose us for their home renovations.
       </p>
     </>
   )
@@ -142,7 +142,7 @@ function CustomCarpentryContent() {
       </p>
 
       <p>
-        Interested in custom cabinets or woodworking for your Ottawa home? <Link href="/contact">Get in touch</Link> with Embaby Carpentry to discuss your project and see what&apos;s possible.
+        Interested in custom cabinets or woodworking for your Ottawa home? <Link href="/services/kitchens">Custom kitchen cabinets</Link> and <Link href="/woodworking">custom woodworking</Link> are among our specialties. <Link href="/contact">Get in touch</Link> with Embaby Carpentry to discuss your project and see what&apos;s possible.
       </p>
     </>
   )

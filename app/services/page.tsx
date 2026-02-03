@@ -5,9 +5,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { SERVICES } from '@/lib/services-data'
 
+import { SITE_URL } from '@/lib/seo'
+
 export const metadata = {
-  title: 'Services - Embaby Carpentry',
-  description: 'Construction and carpentry services including kitchens, bathrooms, basements, decks, fences, sheds, gazebos, pergolas, and custom woodworking.',
+  title: 'Construction & Renovation Services Ottawa | Kitchen, Bath, Decks, Carpentry',
+  description:
+    'Ottawa contractor services: kitchen renovations, bathroom remodels, basement finishing, decks, fences, sheds, gazebos, pergolas, and custom carpentry. Licensed & insured. Free quote. Ottawa, Ontario.',
+  openGraph: {
+    title: 'Construction & Renovation Services Ottawa | Embaby Carpentry',
+    description:
+      'Ottawa contractor services: kitchen renovations, bathroom remodels, decks, fences, and custom carpentry. Licensed & insured. Free quote.',
+    url: `${SITE_URL}/services`,
+  },
+  alternates: { canonical: `${SITE_URL}/services` },
 }
 
 export default function ServicesPage() {
@@ -20,7 +30,7 @@ export default function ServicesPage() {
           background: 'var(--black)',
           textAlign: 'center',
         }}>
-          <h1 className="heading heading-center">Services</h1>
+          <h1 className="heading heading-center">Construction &amp; Renovation Services in Ottawa</h1>
           <p style={{
             fontSize: '1.8rem',
             color: 'var(--text-secondary)',
@@ -28,7 +38,7 @@ export default function ServicesPage() {
             margin: '0 auto 4rem',
             lineHeight: 1.7,
           }}>
-            From construction to custom woodworking, we offer a full range of services to bring your vision to life.
+            From kitchen renovations and bathroom remodels to decks, fences, and custom carpentry—we offer a full range of Ottawa contractor services to bring your vision to life.
           </p>
         </section>
 
@@ -37,7 +47,7 @@ export default function ServicesPage() {
             {SERVICES.map((service) => (
               <article key={service.id} className="service-card" id={service.id}>
                 <div className="service-card-image">
-                  <Image src={service.img} alt={service.title} width={400} height={240} className="service-card-img" />
+                  <Image src={service.img} alt={`${service.title} Ottawa - Embaby Carpentry`} width={400} height={240} className="service-card-img" />
                 </div>
                 <div className="service-card-body">
                   <h3 className="service-card-title">{service.title}</h3>

@@ -35,7 +35,7 @@ export default function Home({ slideshowImages = [] }: Props) {
             <div className={`hero-bg-slide ${visibleSlot === 0 ? 'hero-bg-slide--active' : ''}`}>
               <Image
                 src={slot0Src}
-                alt=""
+                alt="Ottawa construction and renovation projects by Embaby Carpentry"
                 fill
                 className="hero-bg-img"
                 sizes="100vw"
@@ -45,7 +45,7 @@ export default function Home({ slideshowImages = [] }: Props) {
               <div className={`hero-bg-slide ${visibleSlot === 1 ? 'hero-bg-slide--active' : ''}`}>
                 <Image
                   src={slot1Src}
-                  alt=""
+                  alt="Ottawa carpentry and renovation work - Embaby Carpentry portfolio"
                   fill
                   className="hero-bg-img"
                   sizes="100vw"

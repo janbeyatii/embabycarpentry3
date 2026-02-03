@@ -928,6 +928,18 @@ section {
   width: 100%;
 }
 
+.about .row .video .video-click-wrapper {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+.about .row .video .video-click-wrapper video {
+  width: 100%;
+  display: block;
+  pointer-events: none;
+}
+
 .about {
   background: #f5f5f5;
 }
@@ -4048,6 +4060,61 @@ body:has(.blog-post-page) {
 }
 
 .service-page-back-link:hover {
+  color: var(--text-primary);
+}
+
+.service-page-section {
+  margin-top: 3rem;
+}
+
+.service-page-subtitle {
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin: 2rem 0 1rem;
+  font-weight: 600;
+}
+
+.service-page-subsection {
+  margin-bottom: 2rem;
+}
+
+.service-page-related {
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: var(--border);
+}
+
+.service-page-related-list {
+  list-style: none;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.service-page-related-list a {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: var(--transition);
+}
+
+.service-page-related-list a:hover {
+  color: var(--text-primary);
+}
+
+.service-page-related-links {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+}
+
+.service-page-related-links a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.service-page-related-links a:hover {
   color: var(--text-primary);
 }
 

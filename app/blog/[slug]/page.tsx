@@ -5,6 +5,7 @@ import ScrollToTop from '@/app/components/ScrollToTop'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getBlogBySlug, getAllBlogSlugs, BLOG_POSTS } from '@/lib/blog-data'
+import { SITE_URL } from '@/lib/seo'
 import BlogPostContent from './BlogPostContent'
 
 type Props = {
@@ -20,8 +21,16 @@ export async function generateMetadata({ params }: Props) {
   const post = getBlogBySlug(slug)
   if (!post) return {}
   return {
-    title: `${post.title} - Embaby Carpentry`,
+    title: post.title,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `${SITE_URL}/blog/${slug}`,
+      type: 'article',
+      publishedTime: post.date,
+    },
+    alternates: { canonical: `${SITE_URL}/blog/${slug}` },
   }
 }
 
@@ -43,7 +52,7 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="blog-post__image-wrap">
               <Image
                 src={post.image}
-                alt={post.title}
+                alt={`${post.title} - Embaby Carpentry Ottawa blog`}
                 fill
                 sizes="100vw"
                 priority

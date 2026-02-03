@@ -14,7 +14,7 @@ export default function Services() {
             <div className="service-card-image">
               <Image
                 src={service.img}
-                alt={service.title}
+                alt={`${service.title} Ottawa - Embaby Carpentry`}
                 width={400}
                 height={240}
                 className="service-card-img"

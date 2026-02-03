@@ -4,7 +4,8 @@ import Link from 'next/link'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import ScrollToTop from '../../components/ScrollToTop'
-import { getServiceBySlug, getAllServiceSlugs } from '@/lib/services-data'
+import { getServiceBySlug, getAllServiceSlugs, SERVICES } from '@/lib/services-data'
+import { SITE_URL, buildServiceSchema } from '@/lib/seo'
 
 export async function generateStaticParams() {
   return getAllServiceSlugs().map((slug) => ({ slug }))
@@ -15,8 +16,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const service = getServiceBySlug(slug)
   if (!service) return { title: 'Service Not Found' }
   return {
-    title: `${service.title} - Embaby Carpentry`,
-    description: service.shortDesc,
+    title: service.metaTitle,
+    description: service.metaDescription,
+    openGraph: {
+      title: service.metaTitle,
+      description: service.metaDescription,
+      url: `${SITE_URL}/services/${slug}`,
+      images: [{ url: `${SITE_URL}${service.img}`, width: 1200, height: 630, alt: `${service.title} Ottawa - Embaby Carpentry` }],
+    },
+    alternates: { canonical: `${SITE_URL}/services/${slug}` },
   }
 }
 
@@ -26,18 +34,36 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   if (!service) notFound()
 
   const { content } = service
+  const relatedServices = SERVICES.filter((s) => s.slug !== slug).slice(0, 3)
+  const serviceSchema = buildServiceSchema({
+    name: service.title,
+    description: service.metaDescription,
+    url: `${SITE_URL}/services/${slug}`,
+    image: service.img,
+  })
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
       <Header />
       <div className="main-content services-page">
         <section className="service-page-hero">
           <div className="service-page-hero-image">
-            <Image src={service.img} alt={service.title} fill className="service-page-hero-img" sizes="100vw" />
+            <Image
+              src={service.img}
+              alt={`${service.title} in Ottawa - Embaby Carpentry`}
+              fill
+              className="service-page-hero-img"
+              sizes="100vw"
+              priority
+            />
             <div className="service-page-hero-overlay" />
           </div>
           <div className="service-page-hero-content">
-            <h1 className="heading heading-center">{service.title}</h1>
+            <h1 className="heading heading-center">{service.title} in Ottawa</h1>
             <p className="service-page-hero-desc">{service.shortDesc}</p>
           </div>
         </section>
@@ -55,12 +81,43 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
             <p className="service-page-body">{content.body}</p>
 
+            {content.sections?.map((sec, i) => (
+              <div key={i} className="service-page-section">
+                <h2 className="service-page-section-title">{sec.h2}</h2>
+                <p className="service-page-body">{sec.body}</p>
+                {sec.subs?.map((sub, j) => (
+                  <div key={j} className="service-page-subsection">
+                    <h3 className="service-page-subtitle">{sub.h3}</h3>
+                    <p className="service-page-body">{sub.body}</p>
+                  </div>
+                ))}
+              </div>
+            ))}
+
             <div className="service-page-cta">
               <p className="service-page-cta-text">{content.cta}</p>
               <Link href="/contact" className="btn" style={{ background: 'var(--gold)', color: 'var(--black)' }}>
                 Book a Free Consultation
               </Link>
             </div>
+
+            <nav className="service-page-related" aria-label="Related services and resources">
+              <h2 className="service-page-section-title">Explore More Services in Ottawa</h2>
+              <ul className="service-page-related-list">
+                {relatedServices.map((s) => (
+                  <li key={s.slug}>
+                    <Link href={`/services/${s.slug}`}>{s.title}</Link>
+                  </li>
+                ))}
+              </ul>
+              <p className="service-page-related-links">
+                <Link href="/services">View all services</Link>
+                {' · '}
+                <Link href="/blog">Ottawa renovation tips &amp; guides</Link>
+                {' · '}
+                <Link href="/our-work">See our projects</Link>
+              </p>
+            </nav>
 
             <div className="service-page-back">
               <Link href="/services" className="service-page-back-link">

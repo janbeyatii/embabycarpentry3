@@ -7,9 +7,18 @@ import ScrollToTop from '../components/ScrollToTop'
 
 const SQUARE_WOODWORKING_URL = process.env.NEXT_PUBLIC_SQUARE_WOODWORKING_URL || ''
 
+import { SITE_URL } from '@/lib/seo'
+
 export const metadata = {
-  title: 'Custom Woodworking - Embaby Carpentry',
-  description: 'Handcrafted woodworking products including custom furniture, cutting boards, and more. Browse our collection or request a custom build in the Ottawa area.',
+  title: 'Custom Woodworking Ottawa | Handcrafted Furniture & Carpentry | Embaby Carpentry',
+  description:
+    'Custom woodworking in Ottawa: handcrafted furniture, cutting boards, and custom builds. Browse our collection or request a custom piece. Ottawa, Ontario.',
+  openGraph: {
+    title: 'Custom Woodworking Ottawa | Embaby Carpentry',
+    description: 'Handcrafted woodworking and custom furniture in Ottawa. Browse or request a custom build.',
+    url: `${SITE_URL}/woodworking`,
+  },
+  alternates: { canonical: `${SITE_URL}/woodworking` },
 }
 
 export default async function WoodworkingPage() {
@@ -20,10 +29,9 @@ export default async function WoodworkingPage() {
       <Header />
       <div className="main-content woodworking-page">
         <section className="woodworking-hero">
-          <h1 className="heading heading-center">Custom Woodworking</h1>
+          <h1 className="heading heading-center">Custom Woodworking in Ottawa</h1>
           <p className="woodworking-hero-text">
-            Custom woodworking products crafted with precision and care.
-            Browse our collection or request a custom build tailored to your needs.
+            Handcrafted woodworking and custom carpentry in Ottawa. Browse our collection or request a custom build tailored to your needs.
           </p>
         </section>
 

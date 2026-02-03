@@ -7,9 +7,18 @@ import Link from 'next/link'
 import LazyPortfolioCard from './LazyPortfolioCard'
 import ProjectsTestimonials from './ProjectsTestimonials'
 
+import { SITE_URL } from '@/lib/seo'
+
 export const metadata = {
-  title: 'Our Projects - Embaby Carpentry',
-  description: 'Browse our portfolio of construction, renovation, and carpentry projects in the Ottawa area.',
+  title: 'Our Projects | Ottawa Renovation & Carpentry Portfolio | Embaby Carpentry',
+  description:
+    'Browse our portfolio of kitchen renovations, bathroom remodels, decks, carpentry, and construction projects in Ottawa, Ontario. See our work before you hire.',
+  openGraph: {
+    title: 'Our Projects | Ottawa Renovation & Carpentry Portfolio | Embaby Carpentry',
+    description: 'Portfolio of construction, renovation, and carpentry projects in Ottawa.',
+    url: `${SITE_URL}/our-work`,
+  },
+  alternates: { canonical: `${SITE_URL}/our-work` },
 }
 
 export default function OurWorkPage() {

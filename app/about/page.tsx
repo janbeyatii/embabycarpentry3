@@ -2,10 +2,20 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ScrollToTop from '../components/ScrollToTop'
 import Link from 'next/link'
+import AboutVideo from '../components/AboutVideo'
+
+import { SITE_URL } from '@/lib/seo'
 
 export const metadata = {
-  title: 'About Us - Embaby Carpentry',
-  description: 'Learn about Embaby Carpentry - quality construction and carpentry services in the Ottawa area since 2019.',
+  title: 'About Us | Ottawa Contractor Since 2019 | Embaby Carpentry',
+  description:
+    'Embaby Carpentry: Ottawa contractor for construction, renovations, and custom carpentry since 2019. Licensed, insured, serving Ottawa and the region. Quality craftsmanship and customer satisfaction.',
+  openGraph: {
+    title: 'About Us | Ottawa Contractor Since 2019 | Embaby Carpentry',
+    description: 'Quality construction and carpentry in Ottawa since 2019. Licensed, insured. Serving Ottawa and the region.',
+    url: `${SITE_URL}/about`,
+  },
+  alternates: { canonical: `${SITE_URL}/about` },
 }
 
 const VALUES = [
@@ -68,7 +78,7 @@ export default function AboutPage() {
         <section className="about about-page-main">
           <div className="row">
             <div className="video">
-              <video src="/images/about-vid.mp4" loop muted autoPlay playsInline aria-label="Embaby Carpentry at work"></video>
+              <AboutVideo />
             </div>
             <div className="content">
               <h3>We will provide you the best work which you dreamt for!</h3>

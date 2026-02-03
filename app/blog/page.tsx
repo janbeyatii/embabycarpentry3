@@ -5,9 +5,18 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { BLOG_POSTS } from '@/lib/blog-data'
 
+import { SITE_URL } from '@/lib/seo'
+
 export const metadata = {
-  title: 'Blog - Embaby Carpentry | Ottawa Construction & Renovation Insights',
-  description: 'Expert tips on kitchen renovation costs, choosing contractors, custom carpentry, and home renovations in Ottawa. From Embaby Carpentry.',
+  title: 'Ottawa Renovation & Contractor Blog | Tips, Costs, Guides | Embaby Carpentry',
+  description:
+    'Expert tips on kitchen renovation costs Ottawa, choosing an Ottawa contractor, custom carpentry, and home renovations. Guides for Ottawa homeowners.',
+  openGraph: {
+    title: 'Ottawa Renovation & Contractor Blog | Embaby Carpentry',
+    description: 'Tips on kitchen costs, contractor selection, and renovations in Ottawa.',
+    url: `${SITE_URL}/blog`,
+  },
+  alternates: { canonical: `${SITE_URL}/blog` },
 }
 
 export default function BlogPage() {
@@ -16,9 +25,9 @@ export default function BlogPage() {
       <Header />
       <div className="main-content blog-page">
         <section className="blog-page-hero">
-          <h1 className="heading heading-center">Our Blog</h1>
+          <h1 className="heading heading-center">Ottawa Renovation &amp; Contractor Blog</h1>
           <p className="blog-page-hero__lead">
-            Tips, guides, and insights for Ottawa homeowners planning renovations, kitchen remodels, and custom carpentry projects.
+            Tips, cost guides, and insights for Ottawa homeowners—kitchen renovation costs, how to choose an Ottawa contractor, custom carpentry, and more.
           </p>
         </section>
 
@@ -30,7 +39,7 @@ export default function BlogPage() {
                   <div className="blog-page-card__image">
                     <Image
                       src={post.image}
-                      alt={post.title}
+                      alt={`${post.title} - Embaby Carpentry Ottawa blog`}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
                     />

@@ -12,7 +12,7 @@ export default function Footer() {
               Embaby <span className="footer-logo-accent">Carpentry</span>
             </h3>
             <p className="footer-tagline">
-              Quality construction and custom woodworking in the Ottawa area. From concept to creation.
+              Ottawa contractor for construction, renovations, and custom carpentry. From concept to creation.
             </p>
           </div>
 
@@ -30,11 +30,15 @@ export default function Footer() {
           </div>
 
           <div className="footer-col">
-            <h4 className="footer-heading">Services</h4>
+            <h4 className="footer-heading">Ottawa Services</h4>
             <ul className="footer-links">
-              <li><Link href="/services">Construction</Link></li>
-              <li><Link href="/services">Renovations</Link></li>
-              <li><Link href="/woodworking">Custom Woodworking</Link></li>
+              <li><Link href="/services/kitchens">Kitchen Renovations Ottawa</Link></li>
+              <li><Link href="/services/bath">Bathroom Renovations Ottawa</Link></li>
+              <li><Link href="/services/basement">Basement Finishing Ottawa</Link></li>
+              <li><Link href="/services/decks">Deck Builder Ottawa</Link></li>
+              <li><Link href="/services/fences">Fence Installation Ottawa</Link></li>
+              <li><Link href="/services/sheds-gazebos-pergolas">Sheds &amp; Pergolas Ottawa</Link></li>
+              <li><Link href="/woodworking">Custom Woodworking Ottawa</Link></li>
               <li><Link href="/contact">Free Quote</Link></li>
             </ul>
           </div>

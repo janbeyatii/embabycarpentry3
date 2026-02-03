@@ -1,3 +1,5 @@
+import AboutVideo from './AboutVideo'
+
 export default function About() {
   return (
     <section className="about" id="about">
@@ -5,7 +7,7 @@ export default function About() {
 
       <div className="row">
         <div className="video">
-          <video src="/images/about-vid.mp4" loop muted autoPlay></video>
+          <AboutVideo />
         </div>
 
         <div className="content">
