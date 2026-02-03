@@ -1,54 +1,91 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+
+const CROSSFADE_DURATION_MS = 2000
 
 type Props = {
   slideshowImages?: string[]
 }
 
 export default function Home({ slideshowImages = [] }: Props) {
-  const [index, setIndex] = useState(0)
   const [visibleSlot, setVisibleSlot] = useState(0)
-
-  useEffect(() => {
-    if (slideshowImages.length < 2) return
-    const timer = setInterval(() => {
-      setIndex((i) => (i + 1) % slideshowImages.length)
-      setVisibleSlot((v) => 1 - v)
-    }, 4000)
-    return () => clearInterval(timer)
-  }, [slideshowImages.length])
+  const [indices, setIndices] = useState({ slide0: 0, slide1: 0 })
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const flippedToRef = useRef(0)
 
   const fallbackSrc = '/images/service-1.webp'
   const urls = slideshowImages.length > 0 ? slideshowImages : [fallbackSrc]
   const n = urls.length
-  const slot0Src = visibleSlot === 0 ? urls[index % n] : urls[(index + 1) % n]
-  const slot1Src = visibleSlot === 1 ? urls[index % n] : urls[(index + 1) % n]
+
+  useEffect(() => {
+    if (n < 2) return
+    setIndices((prev) => ({ ...prev, slide1: 1 % n }))
+  }, [n])
+
+  useEffect(() => {
+    if (n < 2) return
+    const interval = setInterval(() => {
+      setVisibleSlot((v) => {
+        const next = 1 - v
+        flippedToRef.current = next
+        return next
+      })
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      timeoutRef.current = setTimeout(() => {
+        const showingSlot = flippedToRef.current
+        setIndices((prev) => {
+          if (showingSlot === 0) {
+            return { ...prev, slide1: (prev.slide0 + 1) % n }
+          }
+          return { ...prev, slide0: (prev.slide1 + 1) % n }
+        })
+        timeoutRef.current = null
+      }, CROSSFADE_DURATION_MS)
+    }, 4000)
+    return () => {
+      clearInterval(interval)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [n])
+
+  const slot0Src = urls[indices.slide0 % n]
+  const slot1Src = urls[indices.slide1 % n]
 
   return (
     <section className="home home-static" id="home">
       <div className="hero-bg hero-bg-slideshow">
         {urls.length > 0 && (
           <>
-            <div className={`hero-bg-slide ${visibleSlot === 0 ? 'hero-bg-slide--active' : ''}`}>
+            <div
+              key="slide-0"
+              className={`hero-bg-slide ${visibleSlot === 0 ? 'hero-bg-slide--active' : ''}`}
+              aria-hidden={visibleSlot !== 0}
+            >
               <Image
                 src={slot0Src}
                 alt="Ottawa construction and renovation projects by Embaby Carpentry"
                 fill
                 className="hero-bg-img"
                 sizes="100vw"
+                priority
               />
             </div>
             {urls.length > 1 && (
-              <div className={`hero-bg-slide ${visibleSlot === 1 ? 'hero-bg-slide--active' : ''}`}>
+              <div
+                key="slide-1"
+                className={`hero-bg-slide ${visibleSlot === 1 ? 'hero-bg-slide--active' : ''}`}
+                aria-hidden={visibleSlot !== 1}
+              >
                 <Image
                   src={slot1Src}
                   alt="Ottawa carpentry and renovation work - Embaby Carpentry portfolio"
                   fill
                   className="hero-bg-img"
                   sizes="100vw"
+                  priority
                 />
               </div>
             )}
